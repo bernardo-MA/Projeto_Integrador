@@ -1,0 +1,39 @@
+*SISTEMA CAFETERIA STEAMCOFFEE*
+
+um sistema para anotar pedidos e adições que vao automaticamente para os baristas quando confirmados, sistema de notinhas, anotar os atendimentos do dia, sistema pra fechar e abrir o caixa que mostra quanto valor entrou em debito, credito pix e dinheiro, estoque da cafeteria***, sangria do caixa, 
+
+DB - falcao e pedro
+
+front - samuel/bernardoma - se der
+
+back - bernardo Mo/ resto se precisar
+
+DB - fazer uma tabela para os pedidos confirmados e outra tabela para os pedidos que chegaram pro barista
+
+tabela pedidos - deve conter mesa, bebida, comida
+
+tabela barista - mesa e pedido completo
+
+tabela notinha - recebe a tabela barista
+
+tabela relatorio - recebe notinha no final do dia(em 1 indice recebe a notinha inteira)
+
+FRONT - criar a interface da aplicação e aplicar uma funcionalidade para os botões
+
+GARÇOM
+
+criar pagina inicial onde ficarão os botões - bebidas, comidas
+
+na pagina bebidas deve ter um botão respectivo a cada bebida e a ele deve ser atribuida a função do mesmo no back end, o mesmo deve ser feito as comidas
+
+em cima de cada pagina deve ter um input para ser digitado o numero da mesa que realizou o pedido
+
+BARISTA
+
+uma tela que mostra como uma lista a mesa e o pedido completo, ao lado um botao que recebe a função de confirmar que o indicie naquela posição foi entregue ao cliente.
+
+BACK - fazer uma função pra cada botao do front end e executar as atualizações da tabela 
+
+criar uma função para a ação de cada botao
+
+quando um indice passa de uma tabela pra outra deve apagar o mesmo da tabela anterior, no final do dia joga TODA a tabela notinha em 1 unico indice da tabela relatorio, a tabela relatorio nao será apagada
