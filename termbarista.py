@@ -31,7 +31,7 @@ class Termbarista:
             print("\nPedido atual:")
             for item in self.pedido:
                 print(item)
-            print("--------------------")
+            print("\n--------------------")
 
 
             print("\nDeseja:")
@@ -51,7 +51,8 @@ class Termbarista:
     def barista(self):
         print("-------------PEDIDOS PARA BARISTA-------------")
         for mesa, pedido in self.ped:
-            print(f"{mesa} | {pedido}")
+            itens_formatados = ", ".join(pedido)
+            print(f"{mesa} | {itens_formatados}")
 
 
 if __name__ =="__main__":
@@ -60,9 +61,9 @@ if __name__ =="__main__":
     app.cardapio()
 
     while True:
-        print("1- Barista")
-        print("2- Garçom")
-        se=input("Deseja ver a tabela do barista? ou realizar outro pedido? ")
+        print("1- Finalizar e enviar ao barista")
+        print("2- Adicionar pedido de outra mesa")
+        se=input("")
 
 
         if se == "1":

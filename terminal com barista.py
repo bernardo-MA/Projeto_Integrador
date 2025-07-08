@@ -5,9 +5,10 @@ pedido = []
 ped=[]
 completo=[]
 esc = 0
+t = 0
 
 
-def cardapio(op,esc,pedido):
+def cardapio(op,esc,pedido,t):
     op = ["Expresso","Cappuccino", "Latte", "Moca", "Torta Chocolate", "Torta Morango", "Pão de Queijo", "Pastel"]
     t = 1
     # mesa=input("Qual mesa fez o pedido?")
@@ -30,33 +31,29 @@ def cardapio(op,esc,pedido):
         print("2 - Finalizar")
         t = int(input(""))
         os.system("CLS")
-    ped.append(pedido)
 
 
-mesa=input("Qual mesa fez o pedido?")
-cardapio(bebidas,esc,pedido)
-# ped.append(pedido)
+mesa=input("Qual mesa fez o pedido? ")
+cardapio(bebidas,esc,pedido, t)
 
 
 
 def barista():
-    q=len(ped)
-    # for i in ped:
-    for i in range(0,q):
-        print(mesa,"-", ped[i],"\n")
+    for item in pedido:
+        print(f"{mesa} - {item}")
 
 
-while 0!=1:
+while t !=1:
     print("1- Barista")
     print("2- Garçom")
-    se=input("Deseja ver a tabela do barista? ou realizar outro pedido?")
+    se=input("Deseja ver a tabela do barista? ou realizar outro pedido? ")
     if se == "1":
         barista()
-
+        t = 1
         # for coisa in completo:
         #     print(mesa,"-", coisa)
     elif se=="2":
         mesa=input("Qual mesa fez o pedido?")
-        cardapio(bebidas,esc,pedido)
+        cardapio(bebidas,esc,pedido, t)
         # ped.append(pedido)
         
