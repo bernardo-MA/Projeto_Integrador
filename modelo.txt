@@ -37,3 +37,7 @@ BACK - fazer uma função pra cada botao do front end e executar as atualizaçõ
 criar uma função para a ação de cada botao
 
 quando um indice passa de uma tabela pra outra deve apagar o mesmo da tabela anterior, no final do dia joga TODA a tabela notinha em 1 unico indice da tabela relatorio, a tabela relatorio nao será apagada
+
+
+
+https://www.youtube.com/watch?v=3nApxYTpUik&list=PLwdRIQYrHHU1MGlXIykshfhEApzkPXgQH
