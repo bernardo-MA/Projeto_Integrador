@@ -27,6 +27,7 @@ class Termbarista:
         self.ped=[]
         self.completo=[]
         self.mesa= None
+        self.garcom=("INSERT INTO ordem (mesa, pedido) VALUES (%s, %s)")
 
 
     def cardapio(self):
@@ -59,8 +60,9 @@ class Termbarista:
             os.system("CLS")
 
             if t==2:
-                conexao.Executar("INSERT INTO ")
                 self.ped.append((self.mesa, list(self.pedido)))
+                val=self.ped
+                conexao.Executar(f"INSERT INTO ordem (mesa, pedido) VALUES ({val})")
                 self.pedido.clear()
                 break
         
@@ -71,7 +73,7 @@ class Termbarista:
     def barista(self):
         print("-------------PEDIDOS PARA BARISTA-------------")
         for mesa, pedido in self.ped:
-            print(f"{mesa} | {pedido}")
+            print(f"{mesa} | {pedido}")  
 
 
 if __name__ =="__main__":
