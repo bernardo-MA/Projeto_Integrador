@@ -35,9 +35,8 @@ class Termbarista:
             self.cur.execute("select * from ordem")
             output = self.cur.fetchall()
             
-            for a,b,c,d in output:
+            for a,c,d in output:
                 print(f"ID:{a}")
-                print(f"Mesa:{b}")
                 print(f"Pedido:{c}")
                 print(f"Data:{d}")
                 print("--------------------------")
@@ -52,7 +51,7 @@ class Termbarista:
 
     def cardapio(self):
         os.system("CLS")
-        self.mesa =input("\nQual mesa fez o pedido? ")
+        self.mesa =str(input("\nQual mesa fez o pedido? "))
 
 
         while True:
@@ -81,7 +80,16 @@ class Termbarista:
 
             if t==2:
                 self.ped.append((self.mesa, list(self.pedido)))
-                self.cur.execute("insert into ordem (mesa, pedido) VALUES ('12', 'Expresso')")
+                self.val=self.pedido
+                try:
+                    self.conn.ping(reconnect=True)
+                    # for self.a in self.pedido:
+                    sql=("insert into ordem (mesa, pedido) VALUES ('%s', '%s')")
+                    valores=str(self.ped)
+                    self.cur.execute(sql, valores)
+                    self.conn.commit()
+                except  Exception as e:
+                    print("Erro ", e)
                 self.pedido.clear()
                 break
         
@@ -102,6 +110,7 @@ if __name__ =="__main__":
     while True:
         print("1- Barista")
         print("2- Garçom")
+        print("3- DB")
         se=input("Deseja ver a tabela do barista? ou realizar outro pedido? ")
 
 
@@ -109,4 +118,5 @@ if __name__ =="__main__":
             app.barista()
         elif se=="2":
             app.cardapio()
-    
+        elif se=="3":
+            app.mysqlconnect()
