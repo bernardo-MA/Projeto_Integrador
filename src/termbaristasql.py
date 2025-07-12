@@ -47,7 +47,7 @@ class Termbarista:
             print(f"Deu erro porra {e}")
         
 
-
+#chupa paus
 
     def cardapio(self):
         os.system("CLS")
