@@ -3,22 +3,9 @@ import time
 import pymysql
 from pymysql import Error
 from Conexao import Conexao
-
-conexao=Conexao('cafeteria', '127.0.0.1')
-if not conexao.Iniciar():
-    print("Não foi possível conectar!")
-    quit
+from conexaob import conecta
 
 class Termbarista:
-    from Conexao import Conexao
-
-    conexao=Conexao('cafeteria', '127.0.0.1')
-    if not conexao.Iniciar():
-        print("Não foi possível conectar!")
-        quit
-
-
-
 
     def __init__(self):
         self.op = ["Expresso","Cappuccino", "Latte", "Moca", "Torta Chocolate", "Torta Morango", "Pão de Queijo", "Pastel"]
@@ -27,7 +14,40 @@ class Termbarista:
         self.ped=[]
         self.completo=[]
         self.mesa= None
+        self.cur= None
+        self.conn= None
         self.garcom=("INSERT INTO ordem (mesa, pedido) VALUES (%s, %s)")
+
+
+    def mysqlconnect(self):
+        # To connect MySQL database
+        try:
+            self.conn = pymysql.connect(
+                host='127.0.0.1',
+                user='root', 
+                password = "",
+                db='cafeteria',
+                )
+            
+            self.cur = self.conn.cursor()
+            
+            # Select query
+            self.cur.execute("select * from ordem")
+            output = self.cur.fetchall()
+            
+            for a,b,c,d in output:
+                print(f"ID:{a}")
+                print(f"Mesa:{b}")
+                print(f"Pedido:{c}")
+                print(f"Data:{d}")
+                print("--------------------------")
+            
+            # To close the connection
+            self.conn.close()
+        except pymysql.MySQLError as e:
+            print(f"Deu erro porra {e}")
+        
+
 
 
     def cardapio(self):
@@ -61,8 +81,7 @@ class Termbarista:
 
             if t==2:
                 self.ped.append((self.mesa, list(self.pedido)))
-                val=self.ped
-                conexao.Executar(f"INSERT INTO ordem (mesa, pedido) VALUES ({val})")
+                self.cur.execute("insert into ordem (mesa, pedido) VALUES ('12', 'Expresso')")
                 self.pedido.clear()
                 break
         
@@ -78,7 +97,7 @@ class Termbarista:
 
 if __name__ =="__main__":
     app=Termbarista()
-
+    app.mysqlconnect()
 
     while True:
         print("1- Barista")
