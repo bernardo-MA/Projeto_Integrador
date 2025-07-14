@@ -47,8 +47,6 @@ class Termbarista:
             print(f"Deu erro porra {e}")
         
 
-#chupa paus
-
     def cardapio(self):
         os.system("CLS")
         self.mesa =str(input("\nQual mesa fez o pedido? "))
@@ -83,24 +81,23 @@ class Termbarista:
                 self.val=self.pedido
                 try:
                     self.conn.ping(reconnect=True)
-                    # for self.a in self.pedido:
-                    sql=("insert into ordem (mesa, pedido) VALUES ('%s', '%s')")
-                    valores=str(self.ped)
+                    for self.a in self.pedido:
+                        sql=("insert into ordem (pedido) VALUES (%s)")
+                        valor = (f'{self.mesa} - {", ".join(self.pedido)}')
+                        valores = (valor,)
                     self.cur.execute(sql, valores)
                     self.conn.commit()
                 except  Exception as e:
                     print("Erro ", e)
                 self.pedido.clear()
+                
                 break
         
-
-
-
-
     def barista(self):
         print("-------------PEDIDOS PARA BARISTA-------------")
         for mesa, pedido in self.ped:
-            print(f"{mesa} | {pedido}")  
+            itens_formatados = ", ".join(pedido)
+            print(f"{mesa} | {itens_formatados}")  
 
 
 if __name__ =="__main__":
