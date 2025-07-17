@@ -16,7 +16,6 @@ class Termbarista:
         self.mesa= None
         self.cur= None
         self.conn= None
-        self.garcom=("INSERT INTO ordem (mesa, pedido) VALUES (%s, %s)")
 
 
     def mysqlconnect(self):
