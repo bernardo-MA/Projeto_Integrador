@@ -22,4 +22,5 @@ label = Label (janela, text= "Hello World!", font=("Arial Bold", 25), bg="black"
 
 label.grid(row=0, column=0, padx=440, pady=320)
 
+
 janela.mainloop()
