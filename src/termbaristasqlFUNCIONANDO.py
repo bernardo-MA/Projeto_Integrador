@@ -2,7 +2,6 @@ import os
 import time
 import pymysql
 from pymysql import Error
-from Conexao import Conexao
 from conexaob import conecta
 
 class Termbarista:

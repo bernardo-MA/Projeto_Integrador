@@ -1,26 +1,39 @@
 from tkinter import *
-janela = Tk()
-janela.title("STEAMCOFFEE")
 
-escfull=False
+class front:
+    def __init__(self):
+        self.janela = Tk()
+        self.escfull=None
+        self.escfull=False
+    def telacheia(self, event):
+        self.escfull = not self.escfull
+        self.janela.attributes("-fullscreen", self.escfull)
 
-def telacheia(event=None):
-    global escfull
-    escfull = not escfull
-    janela.attributes("-fullscreen", escfull)
+    def window(self, event):
+        self.escfull = False
+        self.janela.attributes("-fullscreen", False)
 
-def window(event=None):
-    global escfull
-    escfull = False
-    janela.attributes("-fullscreen", False)
+    def telainicial(self):
+        self.janela.title("STEAMCOFFEE")
 
-janela.bind("<F11>", telacheia)
-janela.bind("<Escape>", window)
-janela.geometry("1080x720")
+        self.janela.bind("<F11>", self.telacheia)
+        self.janela.bind("<Escape>", self.window)
+        self.janela.geometry("1280x720")
+        self.janela.resizable(False,False)
 
-label = Label (janela, text= "Hello World!", font=("Arial Bold", 25), bg="black", fg="white")
+        label = Label (self.janela, text= "STEAMCOFFEE", font=("Arial Bold", 25), bg="black", fg="white")
 
-label.grid(row=0, column=0, padx=440, pady=320)
+        label.grid(row=0, column=0, padx=0, pady=0)
 
+        botao = Button (self.janela, text="Barista")
+        botao.grid(row=5, column=0, padx=0, pady=2)
 
-janela.mainloop()
+    def ativar(self):
+        self.janela.mainloop()
+
+if __name__ == "__main__":
+    apli=front()
+    # apli.telacheia()
+    # apli.window()
+    apli.telainicial()
+    apli.ativar()
