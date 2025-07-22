@@ -10,12 +10,15 @@ class front:
     def telacheia(self, event):
         self.escfull = not self.escfull
         self.janela.attributes("-fullscreen", self.escfull)
+        
 
     def window(self, event):
         self.escfull = False
         self.janela.attributes("-fullscreen", False)
+     
 
     def telabarista(self):
+        
         self.janela.destroy()
         self.janelabarista.mainloop()
     
@@ -23,12 +26,13 @@ class front:
         print("Tela garçom")
 
     def telainicial(self):
+        self.janelabarista.destroy()
         self.janela.title("STEAMCOFFEE")
-
         self.janela.bind("<F11>", self.telacheia)
         self.janela.bind("<Escape>", self.window)
         self.janela.geometry("1280x720")
-        self.janela.resizable(False,False)
+        # self.janela.resizable(False,False)
+
         ## TEXTOS
         label = Label (self.janela, text= "STEAMCOFFEE", font=("Arial Bold", 25),)        
         texto1= Label (self.janela, text ="Selecione qual area deseja acessar", font=("Arial Bold", 20))
@@ -36,9 +40,11 @@ class front:
         espaco= Label(self.janela, text="")
         espaco.grid(pady=20)
         texto1.grid(row=28, column=0, pady=10, sticky="w")
+
         ## BOTOES
         bar = Button (self.janela, text="Barista", command=self.telabarista)
         bar.grid(row=30, column=0, padx=5, pady=15, sticky="nsew")
+        # bar.place(x=0, y=50)
 
         gar = Button (self.janela, text="Garçom")
         gar.pack
@@ -47,6 +53,7 @@ class front:
         notas=Button (self.janela, text="Notas")
         notas.grid(row=40, column=0, padx=5, pady=15, sticky="nsew")
 
+
     def ativar(self):
         self.janela.mainloop()
 
@@ -54,3 +61,4 @@ if __name__ == "__main__":
     apli=front()
     apli.telainicial()
     apli.ativar()
+    
