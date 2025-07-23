@@ -16,7 +16,8 @@ class front:
     def window(self, event):
         self.escfull = False
         self.janela.attributes("-fullscreen", False)
-     
+    
+    ##FUNÇOES BOTOES
 
     def telabarista(self):
         self.janelabarista = Tk()
@@ -24,11 +25,16 @@ class front:
         self.janelabarista.mainloop()
     
     def telagarcom(self):
-        self.janelagarcom= Tk()
+        self.janelagarcom = Tk()
         self.janela.destroy()
         self.janelagarcom.mainloop()
-        print("Tela garçom")
 
+    def telanotas(self):
+        self.janelanotas=Tk()
+        self.janela.destroy()
+        self.janelanotas.mainloop()
+
+    ##TELAS
     def telainicial(self):
         self.janela.configure(bg="#38312D")
         self.janela.title("STEAMCOFFEE")
@@ -48,11 +54,19 @@ class front:
         subtitulo.pack(pady=3)
 
         ##FUNDO BOTAO
-        self.fb=PhotoImage(file="botaogarcom.png")
+        self.fbg=PhotoImage(file="botaogarcom.png")
+        self.fbb=PhotoImage(file="botaobarista.png")
+        self.fbn=PhotoImage(file="botaonotas.png")
 
         # BOTOES
-        gar=Button(self.janela, image=self.fb, text="GARÇOM", bg="#38312D")
-        gar.pack(pady=3)
+        gar=Button(self.janela, image=self.fbg, bg="#38312D",borderwidth=0,cursor="hand2", command=self.telagarcom)
+        gar.pack(pady=5)
+
+        bar=Button(self.janela, image=self.fbb, bg="#38312D",borderwidth=0,cursor="hand2", command=self.telabarista)
+        bar.pack(pady=5)
+
+        nota=Button(self.janela, image=self.fbn,bg="#38312D",borderwidth=0,cursor="hand2", command=self.telanotas)
+        nota.pack(pady=5)
 
     def ativar(self):
         self.janela.mainloop()
