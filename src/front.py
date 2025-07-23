@@ -47,6 +47,10 @@ class front:
         subtitulo=Label(self.janela, text="A sua cafeteria dos sonhos!", font=("Inknut Antiqua Regular", 20), fg="#D9D9D9",bg="#38312D")
         subtitulo.pack(pady=3)
 
+        ## BOTOES
+        gar=Button(self.janela, )
+
+
     def ativar(self):
         self.janela.mainloop()
 
