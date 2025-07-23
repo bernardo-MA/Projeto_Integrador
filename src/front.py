@@ -1,5 +1,7 @@
 from tkinter import *
 
+from PIL import Image, ImageTk
+
 class front:
     def __init__(self):
         self.janela = Tk()
@@ -36,25 +38,14 @@ class front:
         # self.janela.resizable(False,False)
 
         ## TEXTOS
-        label = Label (self.janela, text= "STEAMCOFFEE", font=("Arial Bold", 25),)        
-        texto1= Label (self.janela, text ="Selecione qual area deseja acessar", font=("Arial Bold", 20))
-        label.grid(row=0, column=0, padx=0, pady=20, sticky="w")
-        espaco= Label(self.janela, text="")
-        espaco.grid(pady=20)
-        texto1.grid(row=28, column=0, pady=10, sticky="w")
+        logo = Label (self.janela, text= "STEAMCOFFEE", font=("Inknut Antiqua Regular", 54), fg="#D9D9D9", bg="#38312D")        
+        logo.pack(anchor=CENTER)
 
-        ## BOTOES
-        bar = Button (self.janela, text="Barista", command=self.telabarista)
-        bar.grid(row=30, column=0, padx=5, pady=15, sticky="nsew")
-        # bar.place(x=0, y=50)
+        linha= Frame(self.janela, bg="#D9D9D9", height=1, width=500)        
+        linha.pack(pady=3)
 
-        gar = Button (self.janela, text="Garçom", command=self.telagarcom)
-        gar.pack
-        gar.grid(row=35, column=0, padx=5, pady=15, sticky="nsew")
-
-        notas=Button (self.janela, text="Notas")
-        notas.grid(row=40, column=0, padx=5, pady=15, sticky="nsew")
-
+        subtitulo=Label(self.janela, text="A sua cafeteria dos sonhos!", font=("Inknut Antiqua Regular", 20), fg="#D9D9D9",bg="#38312D")
+        subtitulo.pack(pady=3)
 
     def ativar(self):
         self.janela.mainloop()
@@ -63,4 +54,4 @@ if __name__ == "__main__":
     apli=front()
     apli.telainicial()
     apli.ativar()
-    
+     
