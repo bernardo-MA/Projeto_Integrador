@@ -5,7 +5,6 @@ class front:
         self.janela = Tk()
         self.escfull=None
         self.escfull=False
-        self.janelabarista = Tk()
 
     def telacheia(self, event):
         self.escfull = not self.escfull
@@ -18,15 +17,18 @@ class front:
      
 
     def telabarista(self):
-        
+        self.janelabarista = Tk()
         self.janela.destroy()
         self.janelabarista.mainloop()
     
     def telagarcom(self):
+        self.janelagarcom= Tk()
+        self.janela.destroy()
+        self.janelagarcom.mainloop()
         print("Tela garçom")
 
     def telainicial(self):
-        self.janelabarista.destroy()
+        self.janela.configure(bg="#38312D")
         self.janela.title("STEAMCOFFEE")
         self.janela.bind("<F11>", self.telacheia)
         self.janela.bind("<Escape>", self.window)
@@ -46,7 +48,7 @@ class front:
         bar.grid(row=30, column=0, padx=5, pady=15, sticky="nsew")
         # bar.place(x=0, y=50)
 
-        gar = Button (self.janela, text="Garçom")
+        gar = Button (self.janela, text="Garçom", command=self.telagarcom)
         gar.pack
         gar.grid(row=35, column=0, padx=5, pady=15, sticky="nsew")
 
