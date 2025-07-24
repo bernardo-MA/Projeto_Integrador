@@ -18,12 +18,17 @@ class front:
         self.janela.attributes("-fullscreen", False)
     
     ##FUNÇOES BOTOES
-
+    def voltar(self):
+        self.janelabarista.destroy()
+        self.janelagarcom.destroy()
+        self.janelanotas.destroy()
+        self.janela.mainloop()
 
     ## OUTRAS TELAS
     def telabarista(self):
-        self.janelabarista = Tk()
-        self.janela.destroy()
+        self.janela.withdraw()
+        self.janelabarista = Toplevel(self.janela)
+        self.st=PhotoImage(file="seta.png")
 
         self.janelabarista.configure(bg="#38312D")
         self.janelabarista.title("BARISTA")
@@ -31,22 +36,26 @@ class front:
         self.janelabarista.bind("<Escape>", self.window)
         self.janelabarista.geometry("1280x720")
 
-        jan=Label(self.janelabarista, text="BARISTA", font=("Inknut Antiqua Regular", 24), fg="#D9D9D9", bg="#38312D")
-        jan.grid(row=0, column=0, pady=3)
 
-        linhab= Frame(self.janelabarista, bg="#D9D9D9", height=5, width=500)        
-        linhab.pack(side=LEFT, pady=3)
+        print(self.st)
+        seta=Button(self.janelabarista, image=self.st,borderwidth=0,bg="#38312D", command=self.voltar)
+        seta.grid(row=0, column=0, pady=2, padx=2, sticky="w")
+
+        jan=Label(self.janelabarista, text="BARISTA", font=("Inknut Antiqua Regular", 24), fg="#D9D9D9", bg="#38312D")
+        jan.grid(row=1, column=0, pady=3)
+
+        linhab= Frame(self.janelabarista, bg="#D9D9D9", height=1, width=500)        
+        linhab.grid(row=3, column=0, pady=3)
         
 
-        self.janelabarista.mainloop()
     
     def telagarcom(self):
-        self.janelagarcom = Tk()
+        self.janelagarcom = Toplevel()
         self.janela.destroy()
         self.janelagarcom.mainloop()
 
     def telanotas(self):
-        self.janelanotas=Tk()
+        self.janelanotas=Toplevel()
         self.janela.destroy()
         self.janelanotas.mainloop()
 
