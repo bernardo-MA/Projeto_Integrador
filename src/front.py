@@ -12,17 +12,16 @@ class front:
         self.escfull = not self.escfull
         self.janela.attributes("-fullscreen", self.escfull)
         
-
     def window(self, event):
         self.escfull = False
         self.janela.attributes("-fullscreen", False)
     
     ##FUNÇOES BOTOES
     def voltar(self):
-        self.janelabarista.destroy()
-        self.janelagarcom.destroy()
-        self.janelanotas.destroy()
-        self.janela.mainloop()
+        self.janela.deiconify()
+        self.janelabarista.withdraw()
+        self.janelagarcom.withdraw()
+        self.janelanotas.withdraw()
 
     ## OUTRAS TELAS
     def telabarista(self):
