@@ -19,9 +19,25 @@ class front:
     
     ##FUNÇOES BOTOES
 
+
+    ## OUTRAS TELAS
     def telabarista(self):
         self.janelabarista = Tk()
         self.janela.destroy()
+
+        self.janelabarista.configure(bg="#38312D")
+        self.janelabarista.title("BARISTA")
+        self.janelabarista.bind("<F11>", self.telacheia)
+        self.janelabarista.bind("<Escape>", self.window)
+        self.janelabarista.geometry("1280x720")
+
+        jan=Label(self.janelabarista, text="BARISTA", font=("Inknut Antiqua Regular", 24), fg="#D9D9D9", bg="#38312D")
+        jan.grid(row=0, column=0, pady=3)
+
+        linhab= Frame(self.janelabarista, bg="#D9D9D9", height=5, width=500)        
+        linhab.pack(side=LEFT, pady=3)
+        
+
         self.janelabarista.mainloop()
     
     def telagarcom(self):
@@ -34,7 +50,7 @@ class front:
         self.janela.destroy()
         self.janelanotas.mainloop()
 
-    ##TELAS
+    ##TELA INCIAL
     def telainicial(self):
         self.janela.configure(bg="#38312D")
         self.janela.title("STEAMCOFFEE")
