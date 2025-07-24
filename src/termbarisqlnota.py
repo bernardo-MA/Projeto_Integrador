@@ -126,6 +126,7 @@ class Termbarista:
                     input("\nPressione Enter para voltar...")
 
                 elif op == "3":
+                    os.system("CLS")
                     break
                 else:
                     print("Opção inválida.")
