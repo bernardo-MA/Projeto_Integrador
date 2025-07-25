@@ -24,19 +24,26 @@ class front:
         self.janelanotas.withdraw()
 
     ## OUTRAS TELAS
+    def telagarcom(self):
+        self.janelagarcom = Toplevel()
+        self.janela.withdraw()
+
+
 
     def telabarista(self):
         self.janela.withdraw()
         self.janelabarista = Toplevel(self.janela)
-        self.st=PhotoImage(file="seta.png")
+        self.janelabarista.title("BARISTA")
+        self.st=PhotoImage(file="img/seta.png")
 
         self.janelabarista.configure(bg="#38312D")
         self.janelabarista.title("BARISTA")
         self.janelabarista.bind("<F11>", self.telacheia)
         self.janelabarista.bind("<Escape>", self.window)
         self.janelabarista.geometry("1280x720")
-        
 
+
+        print(self.st)
         seta=Button(self.janelabarista, image=self.st,borderwidth=0,bg="#38312D", command=self.voltar)
         seta.grid(row=0, column=0, pady=2, padx=2, sticky="w")
 
@@ -44,12 +51,9 @@ class front:
         jan.grid(row=1, column=0, pady=3)
 
         linhab= Frame(self.janelabarista, bg="#D9D9D9", height=1, width=500)        
-        linhab.grid(row=3, column=0, pady=3, padx=20)
+        linhab.grid(row=3, column=0, pady=3)
         
 
-    def telagarcom(self):
-        self.janelagarcom = Toplevel()
-        self.janela.withdraw()
 
     def telaatend(self):
         self.janelanotas=Toplevel()
@@ -76,9 +80,9 @@ class front:
         subtitulo.pack(pady=3)
 
         ##FUNDO BOTAO
-        self.fbg=PhotoImage(file="botaogarcom.png")
-        self.fbb=PhotoImage(file="teste/botaobarista.png")
-        self.fbn=PhotoImage(file="botaoatendimentos.png")
+        self.fbg=PhotoImage(file="img/botaogarcom.png")
+        self.fbb=PhotoImage(file="img/botaobarista.png")
+        self.fbn=PhotoImage(file="img/botaoatendimentos.png")
 
         # BOTOES
         gar=Button(self.janela, image=self.fbg, bg="#38312D",borderwidth=0,cursor="hand2", command=self.telagarcom)
