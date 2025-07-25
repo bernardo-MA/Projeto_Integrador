@@ -78,7 +78,7 @@ class front:
 
         ##FUNDO BOTAO
         self.fbg=PhotoImage(file="botaogarcom.png")
-        self.fbb=PhotoImage(file="botaobarista.png")
+        self.fbb=PhotoImage(file="teste/botaobarista.png")
         self.fbn=PhotoImage(file="botaoatendimentos.png")
 
         # BOTOES
