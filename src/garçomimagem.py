@@ -9,19 +9,19 @@ class telagarcom:
         self.garcom = Tk()
         self.garcom.geometry('1280x720')
         self.garcom.title("Garçom")
-        self.icon = PhotoImage(file='logo.png')
+        self.icon = PhotoImage(file='img/logo.png')
         self.garcom.iconphoto(True, self.icon)
         self.garcom.config(background='#38312D')
 
         #imagens
-        self.st = PhotoImage(file='seta.png')
-        self.expresso = PhotoImage(file='expresso.png')
-        self.cappuccino = PhotoImage(file='cappuccino.png')
-        self.latte = PhotoImage(file='latte.png')
-        self.mocca = PhotoImage(file='mocca.png')
-        self.pdq = PhotoImage(file='paodequeijo.png')
-        self.torta = PhotoImage(file='torta.png')
-        self.pastel = PhotoImage(file='pastel.png')
+        self.st = PhotoImage(file='img/seta.png')
+        self.expresso = PhotoImage(file='img/expresso.png')
+        self.cappuccino = PhotoImage(file='img/cappuccino.png')
+        self.latte = PhotoImage(file='img/latte.png')
+        self.mocca = PhotoImage(file='img/mocca.png')
+        self.pdq = PhotoImage(file='img/paodequeijo.png')
+        self.torta = PhotoImage(file='img/torta.png')
+        self.pastel = PhotoImage(file='img/pastel.png')
 
         #Escrita garçom
         self.nmenu = Label(self.garcom,text="GARÇOM",font=('Arial', 45, 'bold'),fg="white",bg='#38312D',)

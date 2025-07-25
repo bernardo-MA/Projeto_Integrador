@@ -24,10 +24,17 @@ class front:
         self.janelanotas.withdraw()
 
     ## OUTRAS TELAS
+    def telagarcom(self):
+        self.janelagarcom = Toplevel()
+        self.janela.withdraw()
+
+
+
     def telabarista(self):
         self.janela.withdraw()
         self.janelabarista = Toplevel(self.janela)
-        self.st=PhotoImage(file="seta.png")
+        self.janelabarista.title("BARISTA")
+        self.st=PhotoImage(file="img/seta.png")
 
         self.janelabarista.configure(bg="#38312D")
         self.janelabarista.title("BARISTA")
@@ -47,16 +54,11 @@ class front:
         linhab.grid(row=3, column=0, pady=3)
         
 
-    
-    def telagarcom(self):
-        self.janelagarcom = Toplevel()
-        self.janela.destroy()
-        self.janelagarcom.mainloop()
 
-    def telanotas(self):
+    def telaatend(self):
         self.janelanotas=Toplevel()
-        self.janela.destroy()
-        self.janelanotas.mainloop()
+        self.janela.withdraw()
+        
 
     ##TELA INCIAL
     def telainicial(self):
@@ -78,9 +80,9 @@ class front:
         subtitulo.pack(pady=3)
 
         ##FUNDO BOTAO
-        self.fbg=PhotoImage(file="botaogarcom.png")
-        self.fbb=PhotoImage(file="botaobarista.png")
-        self.fbn=PhotoImage(file="botaonotas.png")
+        self.fbg=PhotoImage(file="img/botaogarcom.png")
+        self.fbb=PhotoImage(file="img/botaobarista.png")
+        self.fbn=PhotoImage(file="img/botaoatendimentos.png")
 
         # BOTOES
         gar=Button(self.janela, image=self.fbg, bg="#38312D",borderwidth=0,cursor="hand2", command=self.telagarcom)
@@ -89,7 +91,7 @@ class front:
         bar=Button(self.janela, image=self.fbb, bg="#38312D",borderwidth=0,cursor="hand2", command=self.telabarista)
         bar.pack(pady=5)
 
-        nota=Button(self.janela, image=self.fbn,bg="#38312D",borderwidth=0,cursor="hand2", command=self.telanotas)
+        nota=Button(self.janela, image=self.fbn,bg="#38312D",borderwidth=0,cursor="hand2", command=self.telaatend)
         nota.pack(pady=5)
 
     def ativar(self):
