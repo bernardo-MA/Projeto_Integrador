@@ -50,13 +50,12 @@ class front:
     
     def telagarcom(self):
         self.janelagarcom = Toplevel()
-        self.janela.destroy()
-        self.janelagarcom.mainloop()
+        self.janela.withdraw()
 
-    def telanotas(self):
+    def telaatend(self):
         self.janelanotas=Toplevel()
-        self.janela.destroy()
-        self.janelanotas.mainloop()
+        self.janela.withdraw()
+        
 
     ##TELA INCIAL
     def telainicial(self):
@@ -80,7 +79,7 @@ class front:
         ##FUNDO BOTAO
         self.fbg=PhotoImage(file="botaogarcom.png")
         self.fbb=PhotoImage(file="botaobarista.png")
-        self.fbn=PhotoImage(file="botaonotas.png")
+        self.fbn=PhotoImage(file="botaoatendimentos.png")
 
         # BOTOES
         gar=Button(self.janela, image=self.fbg, bg="#38312D",borderwidth=0,cursor="hand2", command=self.telagarcom)
@@ -89,7 +88,7 @@ class front:
         bar=Button(self.janela, image=self.fbb, bg="#38312D",borderwidth=0,cursor="hand2", command=self.telabarista)
         bar.pack(pady=5)
 
-        nota=Button(self.janela, image=self.fbn,bg="#38312D",borderwidth=0,cursor="hand2", command=self.telanotas)
+        nota=Button(self.janela, image=self.fbn,bg="#38312D",borderwidth=0,cursor="hand2", command=self.telaatend)
         nota.pack(pady=5)
 
     def ativar(self):
