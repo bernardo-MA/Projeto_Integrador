@@ -10,6 +10,7 @@ class front:
         self.janela = Tk()
         self.escfull=None
         self.escfull=False
+        self.cur=None
 
     def mysqlconnect(self):
         try:
@@ -22,7 +23,7 @@ class front:
             
             self.cur = self.conn.cursor()
             
-            self.conn.close()
+            # self.conn.close()
         except pymysql.MySQLError as e:
             print(f"Deu erro porra {e}")
 
@@ -39,8 +40,9 @@ class front:
         self.janelabarista.withdraw
         self.janelabarista.deiconify()
 
-    def prontobarista(self):
-        print("pronto")
+    def pedidobarista(self):
+        print("pedido")
+
 
     def voltar(self):
         self.janela.deiconify()
@@ -68,7 +70,12 @@ class front:
         self.janelabarista.bind("<Escape>", self.window)
         self.janelabarista.geometry("1280x720")
 
+        self.cur.execute("SELECT pedido FROM barista")
+        ped=self.cur.fetchall()
+        pedido=[linha[0] for linha in ped]
 
+        mostrarpedido=Label(self.janelabarista, text=pedido, font=("Inknut Antiqua Regular", 20), fg="#D9D9D9", bg="#38312D")
+        mostrarpedido.grid(row=4, column=0,padx=4,pady=3)
 
 
         f5bar=Button(self.janelabarista, image=self.ref, borderwidth=0, bg="#38312D", command=self.f5)
@@ -129,6 +136,7 @@ class front:
 
 if __name__ == "__main__":
     apli=front()
+    apli.mysqlconnect()
     apli.telainicial()
     apli.ativar()
      
