@@ -11,13 +11,14 @@ class front:
         self.escfull=None
         self.escfull=False
         self.cur=None
+        self.pedido=[]
 
     def mysqlconnect(self):
         try:
             self.conn = pymysql.connect(
-                host='127.0.0.1',
+                host='localhost',
                 user='root', 
-                password = "",
+                password = '',
                 db='cafeteria',
                 )
             
@@ -70,11 +71,12 @@ class front:
         self.janelabarista.bind("<Escape>", self.window)
         self.janelabarista.geometry("1280x720")
 
-        self.cur.execute("SELECT pedido FROM barista")
+        self.cur.execute('SELECT pedidocompl FROM barista')
         ped=self.cur.fetchall()
-        pedido=[linha[0] for linha in ped]
+        for item in ped:
+            self.pedido.append(item)
 
-        mostrarpedido=Label(self.janelabarista, text=pedido, font=("Inknut Antiqua Regular", 20), fg="#D9D9D9", bg="#38312D")
+        mostrarpedido=Label(self.janelabarista, text=self.pedido, font=("Inknut Antiqua Regular", 20), fg="#D9D9D9", bg="#38312D")
         mostrarpedido.grid(row=4, column=0,padx=4,pady=3)
 
 
