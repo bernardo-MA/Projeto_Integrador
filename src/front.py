@@ -1,12 +1,30 @@
 from tkinter import *
-
+from conexaob import conecta
+import pymysql
+from pymysql import Error
 from PIL import Image, ImageTk
+
 
 class front:
     def __init__(self):
         self.janela = Tk()
         self.escfull=None
         self.escfull=False
+
+    def mysqlconnect(self):
+        try:
+            self.conn = pymysql.connect(
+                host='127.0.0.1',
+                user='root', 
+                password = "",
+                db='cafeteria',
+                )
+            
+            self.cur = self.conn.cursor()
+            
+            self.conn.close()
+        except pymysql.MySQLError as e:
+            print(f"Deu erro porra {e}")
 
     def telacheia(self, event):
         self.escfull = not self.escfull
@@ -15,14 +33,21 @@ class front:
     def window(self, event):
         self.escfull = False
         self.janela.attributes("-fullscreen", False)
-    
+
     ##FUNÇOES BOTOES
+    def f5(self):
+        self.janelabarista.withdraw
+        self.janelabarista.deiconify()
+
+    def prontobarista(self):
+        print("pronto")
+
     def voltar(self):
         self.janela.deiconify()
         self.janelabarista.withdraw()
         self.janelagarcom.withdraw()
         self.janelanotas.withdraw()
-
+        
     ## OUTRAS TELAS
     def telagarcom(self):
         self.janelagarcom = Toplevel()
@@ -31,10 +56,11 @@ class front:
 
 
     def telabarista(self):
-        self.janela.withdraw()
         self.janelabarista = Toplevel(self.janela)
+        self.janela.withdraw()
         self.janelabarista.title("BARISTA")
         self.st=PhotoImage(file="img/seta.png")
+        self.ref=PhotoImage(file="img/f5.png")
 
         self.janelabarista.configure(bg="#38312D")
         self.janelabarista.title("BARISTA")
@@ -43,7 +69,11 @@ class front:
         self.janelabarista.geometry("1280x720")
 
 
-        print(self.st)
+
+
+        f5bar=Button(self.janelabarista, image=self.ref, borderwidth=0, bg="#38312D", command=self.f5)
+        f5bar.grid(row=0, column=1, pady=2,padx=2, sticky="w")
+
         seta=Button(self.janelabarista, image=self.st,borderwidth=0,bg="#38312D", command=self.voltar)
         seta.grid(row=0, column=0, pady=2, padx=2, sticky="w")
 
