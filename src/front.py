@@ -49,7 +49,7 @@ class front:
         self.janela.deiconify()
         self.janelabarista.withdraw()
         self.janelagarcom.withdraw()
-        self.janelanotas.withdraw()
+        self.janelaatend.withdraw()
         
     ## OUTRAS TELAS
     def telagarcom(self):
@@ -74,9 +74,10 @@ class front:
         self.cur.execute('SELECT pedidocompl FROM barista')
         ped=self.cur.fetchall()
         for item in ped:
-            self.pedido.append(item)
+            self.pedido.append(item[0])
+        mostpedido="\n".join(self.pedido)
 
-        mostrarpedido=Label(self.janelabarista, text=self.pedido, font=("Inknut Antiqua Regular", 20), fg="#D9D9D9", bg="#38312D")
+        mostrarpedido=Label(self.janelabarista, text=mostpedido, font=("Inknut Antiqua Regular", 20), fg="#D9D9D9", bg="#38312D")
         mostrarpedido.grid(row=4, column=0,padx=4,pady=3)
 
 
@@ -95,7 +96,7 @@ class front:
 
 
     def telaatend(self):
-        self.janelanotas=Toplevel()
+        self.janelaatend=Toplevel()
         self.janela.withdraw()
         
 
