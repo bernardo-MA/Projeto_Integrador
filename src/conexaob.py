@@ -24,7 +24,7 @@ class conecta:
             print("--------------------------")
         
         # To close the connection
-        conn.close()
+        # conn.close()
 
     # Driver Code
     if __name__ == "__main__" :
