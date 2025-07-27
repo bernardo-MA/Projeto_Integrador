@@ -45,7 +45,12 @@ class front:
         # self.janelabarista.deiconify()
 
     def confirmbar(self):
-        print("pedido confirmado e excluido")
+        self.confmesa=self.qualmesa.get() 
+        self.cur.execute('DELETE FROM barista where pedidocompl LIKE %s', (f"{self.confmesa}%",))
+
+        self.janelabarista.destroy()
+        self.pedido=[]
+        self.telabarista()
 
     def voltar(self):
         self.janela.deiconify()
@@ -89,22 +94,15 @@ class front:
         mostrarpedido=Label(self.janelabarista, text=mostpedido, font=("Inknut Antiqua Regular", 20), fg="#D9D9D9", bg="#38312D")
         mostrarpedido.grid(row=4, column=0,padx=4,pady=3)
 
-        textoconf=Label(self.janelabarista, text="QUAL MESA DESEJA CONFIRMAR", font=("Inknut Antiqua", 12), fg="#D9D9D9", bg="#38312D")
+        textoconf=Label(self.janelabarista, text="QUAL MESA DESEJA CONFIRMAR", font=("Inknut Antiqua", 23), fg="#D9D9D9", bg="#38312D")
         textoconf.grid(row=4, column=5, padx=3)
 
-        qualmesa=Entry(self.janelabarista, font=30)
-        qualmesa.grid(row=5, column=5, pady=2,padx=4)
+        self.qualmesa=Entry(self.janelabarista, font=30, width=5)
+        self.qualmesa.grid(row=5, column=5, pady=2,padx=4)   
 
         confirmarpedido=Button(self.janelabarista, image=self.fbc, borderwidth=0, cursor="hand2", command=self.confirmbar, bg="#38312D")
         confirmarpedido.grid(row=6, column=5, padx=3, pady=3)
 
-
-        confmesa=qualmesa.get()    
-
-
-
-        f5bar=Button(self.janelabarista, image=self.ref, borderwidth=0, bg="#38312D", command=self.f5)
-        f5bar.grid(row=0, column=1, pady=2,padx=2, sticky="w")
 
         seta=Button(self.janelabarista, image=self.st,borderwidth=0,bg="#38312D", command=self.voltar)
         seta.grid(row=0, column=0, pady=2, padx=2, sticky="w")
