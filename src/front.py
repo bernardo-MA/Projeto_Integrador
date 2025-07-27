@@ -44,6 +44,9 @@ class front:
         self.telabarista()
         # self.janelabarista.deiconify()
 
+    def confirmbar(self):
+        print("pedido confirmado e excluido")
+
     def voltar(self):
         self.janela.deiconify()
         self.janelabarista.withdraw()
@@ -81,8 +84,23 @@ class front:
             self.pedido.append(item[0])
         mostpedido="\n".join(self.pedido)
 
+        self.fbc=PhotoImage(file="img/botaoconfirmar.png")
+
         mostrarpedido=Label(self.janelabarista, text=mostpedido, font=("Inknut Antiqua Regular", 20), fg="#D9D9D9", bg="#38312D")
         mostrarpedido.grid(row=4, column=0,padx=4,pady=3)
+
+        textoconf=Label(self.janelabarista, text="QUAL MESA DESEJA CONFIRMAR", font=("Inknut Antiqua", 12), fg="#D9D9D9", bg="#38312D")
+        textoconf.grid(row=4, column=5, padx=3)
+
+        qualmesa=Entry(self.janelabarista, font=30)
+        qualmesa.grid(row=5, column=5, pady=2,padx=4)
+
+        confirmarpedido=Button(self.janelabarista, image=self.fbc, borderwidth=0, cursor="hand2", command=self.confirmbar, bg="#38312D")
+        confirmarpedido.grid(row=6, column=5, padx=3, pady=3)
+
+
+        confmesa=qualmesa.get()    
+
 
 
         f5bar=Button(self.janelabarista, image=self.ref, borderwidth=0, bg="#38312D", command=self.f5)

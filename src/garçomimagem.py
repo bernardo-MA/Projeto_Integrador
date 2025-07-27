@@ -6,7 +6,7 @@ lista = ["cafe latte"]
 garcom = Tk()
 garcom.geometry('1280x720')
 garcom.title("Garçom")
-icon = PhotoImage(file='logo.png')
+icon = PhotoImage(file='img/logo.png')
 garcom.iconphoto(True, icon)
 garcom.config(background='#38312D')
 
@@ -30,11 +30,11 @@ def quantidade():
     
 
 #Imagens
-imagem = Image.open("cafe.png") 
+imagem = Image.open("img/cafe.png") 
 resizedimage = imagem.resize((200,200))
 cafe = ImageTk.PhotoImage(resizedimage)
 
-imagem2 = Image.open('Tortamorango.png')
+imagem2 = Image.open('img/Tortamorango.png')
 resizedimage2 = imagem2.resize((200,200))
 tortamorango = ImageTk.PhotoImage(resizedimage2)
 
