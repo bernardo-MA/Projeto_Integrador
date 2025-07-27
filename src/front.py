@@ -44,10 +44,6 @@ class front:
         self.telabarista()
         # self.janelabarista.deiconify()
 
-    def pedidobarista(self):
-        print("pedido")
-
-
     def voltar(self):
         self.janela.deiconify()
         self.janelabarista.withdraw()
@@ -62,6 +58,10 @@ class front:
 
 
     def telabarista(self):
+### MUDOU O JEITO DE CONIRMAR PEDIDO, criar uma entry que recebe o valor da mesa e ao confirmar apaga os dados do pedido daquela mesa e 
+## recarrega a pagina
+
+
         # self.janelabarista.withdraw
         self.janelabarista = Toplevel(self.janela)
         self.janela.withdraw()
