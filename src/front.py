@@ -38,8 +38,11 @@ class front:
 
     ##FUNÇOES BOTOES
     def f5(self):
-        self.janelabarista.withdraw
-        self.janelabarista.deiconify()
+        # self.janelabarista.withdraw()
+        self.janelabarista.destroy()
+        self.pedido=[]
+        self.telabarista()
+        # self.janelabarista.deiconify()
 
     def pedidobarista(self):
         print("pedido")
@@ -59,6 +62,7 @@ class front:
 
 
     def telabarista(self):
+        # self.janelabarista.withdraw
         self.janelabarista = Toplevel(self.janela)
         self.janela.withdraw()
         self.janelabarista.title("BARISTA")
