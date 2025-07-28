@@ -38,7 +38,7 @@ class front:
 
     ##FUNÇOES BOTOES
 
-    def mostrar_info(data):
+    def mostrar_info(self,data):
         info = Toplevel()
         info.title("Informações do dia")
         info.geometry("800x600")
@@ -47,7 +47,12 @@ class front:
         titulo = Label(info, text="Detalhes do dia " + data, font=("Arial", 20, "bold"), fg="white", bg="#38312D")
         titulo.pack(pady=30)
 
-        texto = Label(info, text="Exemplo de detalhes do atendimento do dia.", font=("Arial", 14), fg="white", bg="#38312D")
+        self.cur.execute('SELECT pedido FROM ordem WHERE hora like %s', (f"%{data}%"))
+        inter=self.cur.fetchall
+
+        
+
+        texto = Label(info, text=inter, font=("Arial", 14), fg="white", bg="#38312D")
         texto.pack()
 
         fechar = Button(info, text="Fechar", bg="#2C211C", fg="white", width=20, height=2, command=info.destroy)
@@ -62,7 +67,12 @@ class front:
         self.janela.deiconify()
 
     def confirmbar(self):
+        
         self.confmesa=self.qualmesa.get() 
+        self.cur.execute('SELECT pedidocompl FROM barista WHERE pedidocompl LIKE %s',(f"{self.confmesa}%"))
+        pedmesa=self.cur.fetchall
+        self.pedmesabonito="".join(pedmesa)
+        self.cur.execute('INSERT INTO ordem (pedido) VALUES %s',(self.pedmesabonito) )
         self.cur.execute('DELETE FROM barista where pedidocompl LIKE %s', (f"{self.confmesa}%",))
 
         self.janelabarista.destroy()
@@ -133,7 +143,7 @@ class front:
 
     def telaatend(self):
         self.atend=Toplevel(self.janela)
-        self.janela
+        self.janela.withdraw()
         self.atend.title("Atendimentos")
         self.atend.geometry("1280x720")
         self.atend.configure(bg="#38312D")
@@ -150,13 +160,13 @@ class front:
         frame_datas = Frame(self.atend, bg="#38312D")
         frame_datas.pack()
 
-        datas = ["25/07/2025", "24/07/2025", "23/07/2025", "22/07/2025", "21/07/2025", "20/07/2025"]
+        datas = ["25/07/2025", "24/07/2025", "23/07/2025", "22/07/2025", "21/07/2025", "20/07/2025", "2025/07/28"]
 
         for i, data in enumerate(datas):
             botao = Button(frame_datas, text=data, font=("Arial", 12, "bold"), bg="#D9D9D9", fg="black",
                         width=20, height=2, command=lambda d=data: self.mostrar_info(d))
             botao.grid(row=i//3, column=i%3, padx=10, pady=10)
-            self.janela.withdraw()
+
             
 
     ##TELA INCIAL
