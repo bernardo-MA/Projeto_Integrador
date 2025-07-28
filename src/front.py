@@ -3,6 +3,7 @@ from conexaob import conecta
 import pymysql
 from pymysql import Error
 from PIL import Image, ImageTk
+import customtkinter
 
 
 class front:
@@ -56,10 +57,20 @@ class front:
 
         
 
-        texto = Label(info, text=pedidobonito, font=("Inknut Antiqua", 14), fg="white", bg="#38312D")
+        texto = Label(info, text=pedidobonito, font=("Inknut Antiqua", 14), fg="#D9D9D9", bg="#38312D")
         texto.pack()
 
-        fechar = Button(info, text="Fechar", bg="#2C211C", fg="white", width=20, height=2, command=info.destroy)
+        fechar = customtkinter.CTkButton(
+            info, 
+            text="Fechar", 
+            font=("Inknut Antiqua", 20),
+            fg_color="#D9D9D9", 
+            text_color="#38312D", 
+            width=100, 
+            height=40, 
+            command=info.destroy,
+            corner_radius=30,
+            )
         fechar.pack(pady=20)
 
 
@@ -163,10 +174,10 @@ class front:
         self.atend.geometry("1280x720")
         self.atend.configure(bg="#38312D")
 
-        titulo = Label(self.atend, text="ATENDIMENTOS", font=("Inknut Antiqua", 24, "bold"), fg="white", bg="#2C211C")
+        titulo = Label(self.atend, text="ATENDIMENTOS", font=("Inknut Antiqua", 24, "bold"), fg="white", bg="#38312D")
         titulo.pack(pady=(50, 10))
 
-        linha = Frame(self.atend, bg="white", height=2)
+        linha = Frame(self.atend, bg="#D9D9D9", height=2)
         linha.pack(fill=X, padx=100, pady=(0, 30))
 
         seta=Button(self.atend, image=self.st,borderwidth=0,bg="#38312D", command=self.voltar)
@@ -178,8 +189,17 @@ class front:
         datas = ["2025-07-28"]
 
         for i, data in enumerate(datas):
-            botao = Button(frame_datas, text=data, font=("Arial", 12, "bold"), bg="#D9D9D9", fg="black",
-                        width=20, height=2, command=lambda d=data: self.mostrar_info(d))
+            botao = customtkinter.CTkButton(
+                                            frame_datas, 
+                                            text=data, 
+                                            font=("Arial", 20, "bold"), 
+                                            fg_color="#D9D9D9", 
+                                            text_color="#38312D",
+                                            width=100, 
+                                            height=50, 
+                                            command=lambda d=data: self.mostrar_info(d), 
+                                            corner_radius=30
+                                            )
             botao.grid(row=i//3, column=i%3, padx=10, pady=10)
 
             
