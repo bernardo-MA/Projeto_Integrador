@@ -22,14 +22,16 @@ class telagarcom:
         self.pdq = PhotoImage(file='img/paodequeijo.png')
         self.torta = PhotoImage(file='img/torta.png')
         self.pastel = PhotoImage(file='img/pastel.png')
+        self.concluido = PhotoImage(file='img/botaoconcluido.png')
+        self.confirmar = PhotoImage(file="img/botaoconfirmar.png")
 
         #Escritas
         self.nmenu = Label(self.garcom,text="GARÇOM",font=('Arial', 24, 'bold'),fg="#D9D9D9",bg='#38312D',)
         self.nmenu.place(x=30,y=50)
         linha1= Frame(self.garcom, bg="#D9D9D9", height=1, width=320)        
         linha1.place(x=15,y=100)
-        linha1= Frame(self.garcom, bg="#D9D9D9", height=650, width=1)        
-        linha1.place(x=850,y=50)
+        linha2= Frame(self.garcom, bg="#D9D9D9", height=650, width=1)        
+        linha2.place(x=850,y=50)
         
 
     def botoes(self):
@@ -37,10 +39,10 @@ class telagarcom:
         self.cardapio = Frame(self.garcom)
         self.cardapio.place(x=20,y=120)
 
-        self.digitas = Frame(self.garcom)
-        self.digitas.place()
+        self.digitas = Frame(self.garcom,bg='#38312D',bd=0,)
+        self.digitas.place(x=875,y=100)
 
-        # Butoes do cardapio
+        # Botoes do cardapio
         self.opção1 = Button(self.cardapio, image=self.expresso, command=self.Expresso,bg='#38312D',bd=0,activebackground='#38312D')
         self.opção1.pack(side='top')
 
@@ -62,17 +64,25 @@ class telagarcom:
         self.opção7 = Button(self.cardapio, image=self.pastel, command=self.Pastel,bg='#38312D',bd=0,activebackground='#38312D')
         self.opção7.pack(side='top')
 
-        self.qtnt = Label(self.cardapio, text="Quantidade:",font=('Arial',15, 'bold'),fg="white",bg='#38312D')
-        self.qtnt.pack(side='bottom')
+        #Botoes de quantidade 
+        self.qtnt = Label(self.digitas, text="Quantidade:",font=('Arial',15, 'bold'),fg="white",bg='#38312D')
+        self.qtnt.pack(side='top')
 
-        self.qtn = Entry(self.cardapio, font=45)
-        self.qtn.pack(side='bottom')
+        self.qtn = Entry(self.digitas, font=100, width=30)
+        self.qtn.pack(side='right')
 
-        self.add = Button(self.cardapio, text="Add",relief=RAISED,bd=2,command=self.quantidade)
-        self.add.pack(side='bottom')
+        self.add = Button(self.digitas,image=self.confirmar,command=self.quantidade,bg='#38312D',bd=0,)
+        self.add.pack(side='right')
 
-        self.seta = Button(self.garcom, image=self.st,command=self.incompleto,bg='#38312D',bd=0, )
+        #seta
+        self.seta = Button(self.garcom, image=self.st,command=self.incompleto,bg='#38312D',bd=0,)
         self.seta.place(x=0,y=5)
+
+        #Concluir
+        self.Concluido = Button(self.garcom,image=self.concluido,command=self.incompleto,bg='#38312D',bd=0,)
+        self.Concluido.place(x=900,y=500)
+
+
     def incompleto(self):
         print("ainda n funcional")
     #Funções para Botoes
