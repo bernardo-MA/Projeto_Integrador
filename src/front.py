@@ -44,15 +44,19 @@ class front:
         info.geometry("800x600")
         info.configure(bg="#38312D")
 
-        titulo = Label(info, text="Detalhes do dia " + data, font=("Arial", 20, "bold"), fg="white", bg="#38312D")
+        titulo = Label(info, text="Detalhes do dia " + data, font=("Inknut Antiqua", 20, "bold"), fg="white", bg="#38312D")
         titulo.pack(pady=30)
-
-        self.cur.execute('SELECT pedido FROM ordem WHERE hora like %s', (f"%{data}%"))
-        inter=self.cur.fetchall
+        print(data)
+        self.cur.execute('SELECT pedido FROM ordem WHERE hora like %s', (f"%{data}%",))
+        inter=self.cur.fetchall()
+        self.pedbon=[]
+        for item in inter:
+            self.pedbon.append(item[0])
+        pedidobonito="\n".join(self.pedbon)
 
         
 
-        texto = Label(info, text=inter, font=("Arial", 14), fg="white", bg="#38312D")
+        texto = Label(info, text=pedidobonito, font=("Inknut Antiqua", 14), fg="white", bg="#38312D")
         texto.pack()
 
         fechar = Button(info, text="Fechar", bg="#2C211C", fg="white", width=20, height=2, command=info.destroy)
@@ -80,10 +84,21 @@ class front:
         self.telabarista()
 
     def voltar(self):
-        self.atend.withdraw()
+        try:
+            self.janelabarista.withdraw()
+        except:
+            pass
+        try:
+            self.janelagarcom.withdraw()
+        except:
+            pass
+        try:
+            self.atend.withdraw()
+        except:
+            pass
         self.janela.deiconify()
-        self.janelabarista.withdraw()
-        self.janelagarcom.withdraw()
+
+
         
     ## OUTRAS TELAS
     def telagarcom(self):
@@ -148,7 +163,7 @@ class front:
         self.atend.geometry("1280x720")
         self.atend.configure(bg="#38312D")
 
-        titulo = Label(self.atend, text="ATENDIMENTOS", font=("Arial", 24, "bold"), fg="white", bg="#2C211C")
+        titulo = Label(self.atend, text="ATENDIMENTOS", font=("Inknut Antiqua", 24, "bold"), fg="white", bg="#2C211C")
         titulo.pack(pady=(50, 10))
 
         linha = Frame(self.atend, bg="white", height=2)
@@ -160,7 +175,7 @@ class front:
         frame_datas = Frame(self.atend, bg="#38312D")
         frame_datas.pack()
 
-        datas = ["25/07/2025", "24/07/2025", "23/07/2025", "22/07/2025", "21/07/2025", "20/07/2025", "2025/07/28"]
+        datas = ["2025-07-28"]
 
         for i, data in enumerate(datas):
             botao = Button(frame_datas, text=data, font=("Arial", 12, "bold"), bg="#D9D9D9", fg="black",
