@@ -92,13 +92,13 @@ class front:
         
         self.confmesa=self.qualmesa.get() 
         self.cur.execute('SELECT pedidocompl FROM barista WHERE pedidocompl LIKE %s',(f"{self.confmesa}%"))
-        pedmesa=self.cur.fetchall
-        self.pedmesabonito="".join(pedmesa)
-        self.cur.execute('INSERT INTO ordem (pedido) VALUES %s',(self.pedmesabonito) )
+        pedmesa=self.cur.fetchall()
+        self.pedmesabonito=", ".join(str(p[0]) for p in pedmesa)
+        self.cur.execute('INSERT INTO ordem (pedido) VALUES (%s)',(self.pedmesabonito) )
         self.cur.execute('DELETE FROM barista where pedidocompl LIKE %s', (f"{self.confmesa}%",))
 
-        self.janelabarista.destroy()
         self.pedido=[]
+        self.janelabarista.destroy()
         self.telabarista()
 
     def voltar(self):
@@ -142,16 +142,17 @@ class front:
         self.janelabarista.bind("<F11>", self.telacheia)
         self.janelabarista.bind("<Escape>", self.window)
         self.janelabarista.geometry("1280x720")
-
+        ped=[]
+        self.pedido=[]
         self.cur.execute('SELECT pedidocompl FROM barista')
         ped=self.cur.fetchall()
         for item in ped:
             self.pedido.append(item[0])
-        mostpedido="\n".join(self.pedido)
+        self.mostpedido="\n".join(self.pedido)
 
         self.fbc=PhotoImage(file="img/botaoconfirmar.png")
 
-        mostrarpedido=Label(self.janelabarista, text=mostpedido, font=("Inknut Antiqua Regular", 20), fg="#D9D9D9", bg="#38312D")
+        mostrarpedido=Label(self.janelabarista, text=self.mostpedido, font=("Inknut Antiqua Regular", 20), fg="#D9D9D9", bg="#38312D")
         mostrarpedido.grid(row=4, column=0,padx=4,pady=3)
 
         textoconf=Label(self.janelabarista, text="QUAL MESA DESEJA CONFIRMAR", font=("Inknut Antiqua", 23), fg="#D9D9D9", bg="#38312D")
