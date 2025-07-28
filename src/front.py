@@ -37,12 +37,29 @@ class front:
         self.janela.attributes("-fullscreen", False)
 
     ##FUNÇOES BOTOES
+
+    def mostrar_info(data):
+        info = Toplevel()
+        info.title("Informações do dia")
+        info.geometry("800x600")
+        info.configure(bg="#38312D")
+
+        titulo = Label(info, text="Detalhes do dia " + data, font=("Arial", 20, "bold"), fg="white", bg="#38312D")
+        titulo.pack(pady=30)
+
+        texto = Label(info, text="Exemplo de detalhes do atendimento do dia.", font=("Arial", 14), fg="white", bg="#38312D")
+        texto.pack()
+
+        fechar = Button(info, text="Fechar", bg="#2C211C", fg="white", width=20, height=2, command=info.destroy)
+        fechar.pack(pady=20)
+
+
+
     def f5(self):
-        # self.janelabarista.withdraw()
-        self.janelabarista.destroy()
-        self.pedido=[]
-        self.telabarista()
-        # self.janelabarista.deiconify()
+        self.atend.withdraw()
+        self.janelabarista.withdraw()
+        self.janelagarcom.withdraw()
+        self.janela.deiconify()
 
     def confirmbar(self):
         self.confmesa=self.qualmesa.get() 
@@ -53,10 +70,10 @@ class front:
         self.telabarista()
 
     def voltar(self):
+        self.atend.withdraw()
         self.janela.deiconify()
         self.janelabarista.withdraw()
         self.janelagarcom.withdraw()
-        self.janelaatend.withdraw()
         
     ## OUTRAS TELAS
     def telagarcom(self):
@@ -114,11 +131,33 @@ class front:
         linhab.grid(row=3, column=0, pady=3)
         
 
-
     def telaatend(self):
-        self.janelaatend=Toplevel()
-        self.janela.withdraw()
-        
+        self.atend=Toplevel(self.janela)
+        self.janela
+        self.atend.title("Atendimentos")
+        self.atend.geometry("1280x720")
+        self.atend.configure(bg="#38312D")
+
+        titulo = Label(self.atend, text="ATENDIMENTOS", font=("Arial", 24, "bold"), fg="white", bg="#2C211C")
+        titulo.pack(pady=(50, 10))
+
+        linha = Frame(self.atend, bg="white", height=2)
+        linha.pack(fill=X, padx=100, pady=(0, 30))
+
+        seta=Button(self.atend, image=self.st,borderwidth=0,bg="#38312D", command=self.voltar)
+        seta.pack()
+
+        frame_datas = Frame(self.atend, bg="#38312D")
+        frame_datas.pack()
+
+        datas = ["25/07/2025", "24/07/2025", "23/07/2025", "22/07/2025", "21/07/2025", "20/07/2025"]
+
+        for i, data in enumerate(datas):
+            botao = Button(frame_datas, text=data, font=("Arial", 12, "bold"), bg="#D9D9D9", fg="black",
+                        width=20, height=2, command=lambda d=data: self.mostrar_info(d))
+            botao.grid(row=i//3, column=i%3, padx=10, pady=10)
+            self.janela.withdraw()
+            
 
     ##TELA INCIAL
     def telainicial(self):
@@ -143,6 +182,7 @@ class front:
         self.fbg=PhotoImage(file="img/botaogarcom.png")
         self.fbb=PhotoImage(file="img/botaobarista.png")
         self.fbn=PhotoImage(file="img/botaoatendimentos.png")
+        self.st=PhotoImage(file="img/seta.png")
 
         # BOTOES
         gar=Button(self.janela, image=self.fbg, bg="#38312D",borderwidth=0,cursor="hand2", command=self.telagarcom)
