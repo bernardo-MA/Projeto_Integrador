@@ -55,7 +55,6 @@ class front:
 
         titulo = Label(info, text="Detalhes do dia " + data, font=("Inknut Antiqua", 20, "bold"), fg="white", bg="#38312D")
         titulo.pack(pady=30)
-        print(data)
         self.cur.execute('SELECT pedido FROM ordem WHERE hora like %s', (f"%{data}%",))
         inter=self.cur.fetchall()
         self.pedbon=[]
