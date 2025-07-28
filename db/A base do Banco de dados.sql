@@ -17,14 +17,20 @@ Values
 
 create table barista(
 id int auto_increment,
-mesa int not null,
 pedidocompl varchar(100) not null,
 primary key (id)
 )default charset = utf8mb4;
-
+insert into barista (pedidocompl)
+Values
+('1 - 3x Expresso'),
+('1 - 2x Pastel'),
+('2 - 1x Cappuccino');
 
 
 drop table ordem;
 select * from ordem;
-select * from ordem where mesa = 1;
 truncate table ordem;
+truncate table barista;
+drop table barista;
+select * from barista;
+select pedidocompl from barista;
