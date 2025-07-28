@@ -13,6 +13,7 @@ class front:
         self.escfull=False
         self.cur=None
         self.pedido=[]
+        self.datas = ["2025-07-28"]
 
     def mysqlconnect(self):
         try:
@@ -38,6 +39,13 @@ class front:
         self.janela.attributes("-fullscreen", False)
 
     ##FUNÇOES BOTOES
+    def confirmardata(self):
+        self.datan = self.dtnova.get()
+        self.datas.append(self.datan)
+        self.atend.destroy()
+        self.telaatend()
+
+
 
     def mostrar_info(self,data):
         info = Toplevel()
@@ -186,9 +194,31 @@ class front:
         frame_datas = Frame(self.atend, bg="#38312D")
         frame_datas.pack()
 
-        datas = ["2025-07-28"]
+        adddatas=Label(
+            self.atend,
+            text="Insira a nova data:",
+            font=("Inknut Antiqua", 20),
+            fg="#D9D9D9",
+            bg="#38312D",
+                       )
+        adddatas.place(x=990, y=440)
+        self.dtnova=Entry(
+            self.atend,
+            width=20,
+        )
+        self.dtnova.place(x=1070, y=500)
+        self.fbc=PhotoImage(file="img/botaoconfirmar.png")
+        confdtnova=Button(
+            self.atend,
+            image=self.fbc,
+            bg="#38312D",
+            borderwidth=0,
+            command=self.confirmardata,
+        )
+        confdtnova.place(x=1100, y=530)
 
-        for i, data in enumerate(datas):
+
+        for i, data in enumerate(self.datas):
             botao = customtkinter.CTkButton(
                                             frame_datas, 
                                             text=data, 
