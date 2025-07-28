@@ -1,6 +1,5 @@
 from tkinter import *
 
-<<<<<<< HEAD
 class telagarcom:
     def __init__(self):
         self.lista= []
@@ -13,15 +12,6 @@ class telagarcom:
         self.icon = PhotoImage(file='img/logo.png')
         self.garcom.iconphoto(True, self.icon)
         self.garcom.config(background='#38312D')
-=======
-# Configurações da janela
-garcom = Tk()
-garcom.geometry('1280x720')
-garcom.title("Garçom")
-icon = PhotoImage(file='img/logo.png')
-garcom.iconphoto(True, icon)
-garcom.config(background='#38312D')
->>>>>>> cda6806fb28aafbf7de63e41696d04acc22bd6ac
 
         #imagens
         self.st = PhotoImage(file='img/seta.png')
@@ -36,7 +26,7 @@ garcom.config(background='#38312D')
         self.confirmar = PhotoImage(file="img/botaoconfirmar.png")
 
         #Escritas
-        self.nmenu = Label(self.garcom,text="GARÇOM",font=('Arial', 24, 'bold'),fg="#D9D9D9",bg='#38312D',)
+        self.nmenu = Label(self.garcom,text="GARÇOM",font=('Inknut Antiqua', 24, 'bold'),fg="#D9D9D9",bg='#38312D',)
         self.nmenu.place(x=30,y=50)
         linha1= Frame(self.garcom, bg="#D9D9D9", height=1, width=320)        
         linha1.place(x=15,y=100)
@@ -44,7 +34,6 @@ garcom.config(background='#38312D')
         linha2.place(x=850,y=50)
         
 
-<<<<<<< HEAD
     def botoes(self):
         #frame para botoes
         self.cardapio = Frame(self.garcom)
@@ -52,16 +41,6 @@ garcom.config(background='#38312D')
 
         self.digitas = Frame(self.garcom,bg='#38312D',bd=0,)
         self.digitas.place(x=875,y=100)
-=======
-#Imagens
-imagem = Image.open("img/cafe.png") 
-resizedimage = imagem.resize((200,200))
-cafe = ImageTk.PhotoImage(resizedimage)
-
-imagem2 = Image.open('img/Tortamorango.png')
-resizedimage2 = imagem2.resize((200,200))
-tortamorango = ImageTk.PhotoImage(resizedimage2)
->>>>>>> cda6806fb28aafbf7de63e41696d04acc22bd6ac
 
         # Botoes do cardapio
         self.opção1 = Button(self.cardapio, image=self.expresso, command=self.Expresso,bg='#38312D',bd=0,activebackground='#38312D')
@@ -86,7 +65,7 @@ tortamorango = ImageTk.PhotoImage(resizedimage2)
         self.opção7.pack(side='top')
 
         #Botoes de quantidade 
-        self.qtnt = Label(self.digitas, text="Quantidade:",font=('Arial',15, 'bold'),fg="white",bg='#38312D')
+        self.qtnt = Label(self.digitas, text="Quantidade:",font=('Inknut Antiqua',15, 'bold'),fg="white",bg='#38312D')
         self.qtnt.pack(side='top')
 
         self.qtn = Entry(self.digitas, font=100, width=30)
