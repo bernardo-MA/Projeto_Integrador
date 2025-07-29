@@ -62,7 +62,6 @@ class front:
             self.pedbon.append(item[0])
         pedidobonito="\n".join(self.pedbon)
 
-        
 
         texto = Label(info, text=pedidobonito, font=("Inknut Antiqua", 14), fg="#D9D9D9", bg="#38312D")
         texto.pack()
