@@ -1,4 +1,5 @@
 from tkinter import *
+from PIL import Image, ImageTk
 
 class telagarcom:
     def __init__(self):
@@ -23,12 +24,22 @@ class telagarcom:
         self.torta = PhotoImage(file='img/torta.png')
         self.pastel = PhotoImage(file='img/pastel.png')
         self.concluido = PhotoImage(file='img/botaoconcluido.png')
-        self.confirmar = PhotoImage(file="img/botaoconfirmar.png")
+        self.confirmar_o = Image.open("img/botaoconfirmar.png")
+        self.confirmar_n = self.confirmar_o.resize((65,65))
+        self.confirmar = ImageTk.PhotoImage(self.confirmar_n)
+        self.retorno_o = Image.open("img/Retorno.png")
+        self.retorno_n = self.retorno_o.resize((125,125))
+        self.retorno = ImageTk.PhotoImage(self.retorno_n)
+        self.lixeira_o = Image.open("img/lixeira.png")
+        self.lixeira_n = self.lixeira_o.resize((65,65))
+        self.lixeira = ImageTk.PhotoImage(self.lixeira_n)
 
         #Escritas
-        self.nmenu = Label(self.garcom,text="GARÇOM",font=('Inknut Antiqua', 24, 'bold'),fg="#D9D9D9",bg='#38312D',)
-        self.nmenu.place(x=30,y=50)
-        linha1= Frame(self.garcom, bg="#D9D9D9", height=1, width=320)        
+        self.nmenu = Label(self.garcom,text="GARÇOM",font=('Inknut Antiqua', 40, 'bold'),fg="#D9D9D9",bg='#38312D',)
+        self.nmenu.place(x=50,y=-35)
+        self.Itens = Label(self.garcom, text="Itens selecionados", font=('Inknut Antiqua', 12, 'bold'),fg="#D9D9D9",bg='#38312D',)
+        self.Itens.place(x=875, y=35)
+        linha1= Frame(self.garcom, bg="#D9D9D9", height=1, width=360)        
         linha1.place(x=15,y=100)
         linha2= Frame(self.garcom, bg="#D9D9D9", height=650, width=1)        
         linha2.place(x=850,y=50)
@@ -40,7 +51,7 @@ class telagarcom:
         self.cardapio.place(x=20,y=120)
 
         self.digitas = Frame(self.garcom,bg='#38312D',bd=0,)
-        self.digitas.place(x=875,y=100)
+        self.digitas.place(x=860,y=425)
 
         # Botoes do cardapio
         self.opção1 = Button(self.cardapio, image=self.expresso, command=self.Expresso,bg='#38312D',bd=0,activebackground='#38312D')
@@ -69,10 +80,20 @@ class telagarcom:
         self.qtnt.pack(side='top')
 
         self.qtn = Entry(self.digitas, font=100, width=30)
-        self.qtn.pack(side='right')
+        self.qtn.pack(side='left')
 
         self.add = Button(self.digitas,image=self.confirmar,command=self.quantidade,bg='#38312D',bd=0,)
-        self.add.pack(side='right')
+        self.add.pack(side='left')
+        #Botoes para delete 
+        self.returne = Button(self.garcom,image=self.retorno,bg='#38312D',bd=0,)
+        self.returne.place(x=900,y=425)
+        self.delete = Button(self.digitas,image=self.lixeira,bg='#38312D',bd=0,)
+        self.delete.pack(side='left')
+        # self.delete.place(x=950,y=425)
+
+        #Lista do q estas a adicionar
+        self.itens = Listbox(self.garcom,bg='#38312D',fg="#D9D9D9",font=("Inknut Antiqua", 12), width=30, height=6)
+        self.itens.place(x=875, y=75)
 
         #seta
         self.seta = Button(self.garcom, image=self.st,command=self.incompleto,bg='#38312D',bd=0,)
@@ -80,7 +101,7 @@ class telagarcom:
 
         #Concluir
         self.Concluido = Button(self.garcom,image=self.concluido,command=self.incompleto,bg='#38312D',bd=0,)
-        self.Concluido.place(x=900,y=500)
+        self.Concluido.place(x=900,y=575)
 
 
     def incompleto(self):
@@ -126,7 +147,10 @@ class telagarcom:
 
     def quantidade(self):
         self.qtns = self.qtn.get()
-        self.lista.append (f'{self.qtns}x {self.produto}')
+        self.feito = (f'{self.qtns}x {self.produto}')
+        self.lista.append (self.feito)
+        self.itens.insert(END,self.feito)
+        self.qtn.delete(0,END)
         print(self.lista)
     def show(self):
         self.garcom.mainloop()
