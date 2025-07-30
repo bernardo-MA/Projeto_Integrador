@@ -275,6 +275,10 @@ class front:
     ## OUTRAS TELAS
     def telagarcom(self):
         self.garcom = Toplevel(self.janela)
+        if self.janela.attributes("-fullscreen"):
+            self.garcom.attributes("-fullscreen", True)
+        self.garcom.bind("<F11>", self.telacheia)
+        self.garcom.bind("<Escape>", self.window)
         self.garcom.geometry('1280x720')
         self.garcom.title("Garçom")
 
@@ -307,6 +311,10 @@ class front:
 
         # self.janelabarista.withdraw
         self.janelabarista = Toplevel(self.janela)
+        if self.janela.attributes("-fullscreen"):
+            self.janelabarista.attributes("-fullscreen", True)
+        self.janelabarista.bind("<F11>", self.telacheia)
+        self.janelabarista.bind("<Escape>", self.window)
         self.janela.withdraw()
         self.janelabarista.title("BARISTA")
         self.st=PhotoImage(file="img/seta.png")
@@ -352,6 +360,10 @@ class front:
 
     def telaatend(self):
         self.atend=Toplevel(self.janela)
+        if self.janela.attributes("-fullscreen"):
+            self.atend.attributes("-fullscreen", True)
+        self.atend.bind("<F11>", self.telacheia)
+        self.atend.bind("<Escape>", self.window)
         self.janela.withdraw()
         self.atend.title("Atendimentos")
         self.atend.geometry("1280x720")
