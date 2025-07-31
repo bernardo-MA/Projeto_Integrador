@@ -28,15 +28,15 @@ class front:
         self.confirmar = PhotoImage(file='img/botaoconfirmar.png')
         self.retorno = PhotoImage(file='img/f5.png')
         self.lixeira = PhotoImage(file='img/lixeira.png')
-        # self.confirmar_o = Image.open("img/botaoconfirmar.png")
-        # self.confirmar_n = self.confirmar_o.resize((65,65))
-        # self.confirmar = ImageTk.PhotoImage(self.confirmar_n)
-        # self.retorno_o = Image.open("img/f5.png")
-        # self.retorno_n = self.retorno_o.resize((125,125))
-        # self.retorno = ImageTk.PhotoImage(self.retorno_n)
-        # self.lixeira_o = Image.open("img/lixeira.png")
-        # self.lixeira_n = self.lixeira_o.resize((65,65))
-        # self.lixeira = ImageTk.PhotoImage(self.lixeira_n)
+        self.confirmar_o = Image.open("img/botaoconfirmar.png")
+        self.confirmar_n = self.confirmar_o.resize((65,65))
+        self.confirmar = ImageTk.PhotoImage(self.confirmar_n)
+        self.retorno_o = Image.open("img/f5.png")
+        self.retorno_n = self.retorno_o.resize((125,125))
+        self.retorno = ImageTk.PhotoImage(self.retorno_n)
+        self.lixeira_o = Image.open("img/lixeira.png")
+        self.lixeira_n = self.lixeira_o.resize((65,65))
+        self.lixeira = ImageTk.PhotoImage(self.lixeira_n)
         self.voltf5=PhotoImage(file="img/f5.png")
 
 
@@ -118,7 +118,8 @@ class front:
 
     def quantidade(self):
         self.qtns = self.qtn.get()
-        self.feito = (f'{self.qtns}x {self.produto}')
+        self.nnmesa = self.nmesa.get()
+        self.feito = (f'{self.nnmesa} - {self.qtns}x {self.produto}')
         self.lista.append (self.feito)
         self.itens.insert(END,self.feito)
         self.qtn.delete(0,END)
@@ -128,65 +129,66 @@ class front:
         # frame para botoes
         self.cardapio = Frame(self.garcom)
         self.cardapio.place(x=20,y=120)
-
-        self.digitas = Frame(self.garcom,bg='#38312D',bd=0,)
+        self.digitas = Frame(self.garcom,bg='white',bd=1)
         self.digitas.place(x=860,y=425)
+
+        self.mesaf = Frame(self.garcom,bg='#38312D')
+        self.mesaf.place(x=860,y=425)
+        self.qtnf = Frame(self.garcom,bg='#38312D')
+        self.qtnf.place(x=860,y=450)
+        self.botoesf = Frame(self.garcom)
+        self.botoesf.place(x=860,y=475)
         # Botoes do cardapio
         self.opção1 = Button(self.cardapio, image=self.expresso, command=self.Expresso,bg='#38312D',bd=0,activebackground='#38312D')
         self.opção1.pack(side='top')
-
         self.opção2 = Button(self.cardapio, image=self.cappuccino, command=self.Cappuccino,bg='#38312D',bd=0,activebackground='#38312D')
         self.opção2.pack(side='top')
-
         self.opção3 = Button(self.cardapio, image=self.latte, command=self.Latte,bg='#38312D',bd=0,activebackground='#38312D')
         self.opção3.pack(side='top')
-
         self.opção4 = Button(self.cardapio, image=self.mocca, command=self.Mocca,bg='#38312D',bd=0,activebackground='#38312D')
         self.opção4.pack(side='top')
-
         self.opção5 = Button(self.cardapio, image=self.torta, command=self.Torta,bg='#38312D',bd=0,activebackground='#38312D')
         self.opção5.pack(side='top')
-
         self.opção6 = Button(self.cardapio, image=self.pdq, command=self.Pdq,bg='#38312D',bd=0,activebackground='#38312D')
         self.opção6.pack(side='top')
-
         self.opção7 = Button(self.cardapio, image=self.pastel, command=self.Pastel,bg='#38312D',bd=0,activebackground='#38312D')
         self.opção7.pack(side='top')
 
-        #Botoes de quantidade 
-        self.qtnt = Label(self.digitas, text="Quantidade:",font=('Inknut Antiqua',15, 'bold'),fg="white",bg='#38312D')
-        self.qtnt.pack(side='top')
-
-        self.qtn = Entry(self.digitas, font=100, width=10)
-        self.qtn.pack(side='left')
-
-        self.add = Button(self.digitas,image=self.confirmar,command=self.quantidade,bg='#38312D',bd=0,)
+        #Botoes de Controle
+        #quantidade:
+        self.qtnt = Label(self.qtnf, text="Quantidade",font=('Inknut Antiqua',15, 'bold'),fg="#D9D9D9",bg='#38312D')
+        self.qtnt.pack(side='left')
+        self.qtn = Entry(self.qtnf, font=100, width=15,bd =0)
+        self.qtn.pack(side='right')
+        #Mesa
+        self.mesa = Label(self.mesaf, text="Mesa",font=('Inknut Antiqua',15, 'bold'),fg="#D9D9D9",bg='#38312D')
+        self.mesa.pack(side='left')
+        self.nmesa = Entry(self.mesaf, font=100, width=15,bd = 0)
+        self.nmesa.pack(side='right')
+        #add
+        self.add = Button(self.botoesf,image=self.confirmar,command=self.quantidade,bg='#38312D',bd=0,)
         self.add.pack(side='left')
-        #Botoes para delete 
+        #delete 
         self.returne = Button(self.garcom,image=self.voltf5,bg='#38312D',bd=0,command=self.botaoReturne)
         self.returne.place(x=1100,y=490)
         self.delete = customtkinter.CTkButton(
-            self.garcom,
+            self.botoesf,
             text="X",
             text_color="red",
             font=("Arial", 40, "bold"),
+            bg_color="#38312D",
             fg_color="#D9D9D9",
             corner_radius=15,
             width=57,
             height=57,
             command=self.botaoX
         )
-        self.delete.place(x=1025, y=485)
-        # self.delete.place(x=950,y=425)
+        self.delete.pack(side='right')
+        # self.delete.place(x=1025, y=485)
 
         #Lista do q estas a adicionar
-        self.itens = Listbox(self.garcom,bg='#38312D',fg="#D9D9D9",font=("Inknut Antiqua", 12), width=30, height=6)
+        self.itens = Listbox(self.garcom,bg='#38312D',fg="#D9D9D9",font=("Inknut Antiqua", 12), width=30, height=12)
         self.itens.place(x=875, y=75)
-
-        #seta
-        self.seta = Button(self.garcom, image=self.st,command=self.incompleto,bg='#38312D',bd=0,)
-        self.seta.place(x=0,y=5)
-
         #Concluir
         self.Concluido = Button(self.garcom,image=self.concluido,command=self.incompleto,bg='#38312D',bd=0,)
         self.Concluido.place(x=900,y=575)
@@ -284,18 +286,12 @@ class front:
         self.garcom.bind("<Escape>", self.window)
         self.garcom.geometry('1280x720')
         self.garcom.title("Garçom")
-
         self.garcom.config(background='#38312D')
-
-
         self.botoes()
-
-
         self.back=Button(self.garcom, image=self.st, command=self.voltar, bg="#38312D", borderwidth=0)
-        self.back.place(x=0, y=0)
-
+        self.back.place(x=0, y=1)
         self.nmenu = Label(self.garcom,text="GARÇOM",font=('Inknut Antiqua', 40, 'bold'),fg="#D9D9D9",bg='#38312D',)
-        self.nmenu.place(x=50,y=-35)
+        self.nmenu.place(x=50,y=10)
         self.Itens = Label(self.garcom, text="Itens selecionados", font=('Inknut Antiqua', 12, 'bold'),fg="#D9D9D9",bg='#38312D',)
         self.Itens.place(x=875, y=40)
         linha1= Frame(self.garcom, bg="#D9D9D9", height=1, width=360)        
@@ -305,12 +301,9 @@ class front:
 
         self.janela.withdraw()
 
-
-
     def telabarista(self):
 ### MUDOU O JEITO DE CONIRMAR PEDIDO, criar uma entry que recebe o valor da mesa e ao confirmar apaga os dados do pedido daquela mesa e 
 ## recarrega a pagina
-
 
         # self.janelabarista.withdraw
         self.janelabarista = Toplevel(self.janela)
