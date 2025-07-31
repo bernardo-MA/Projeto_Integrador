@@ -52,8 +52,6 @@ class front:
         except pymysql.MySQLError as e:
             print(f"Deu erro porra {e}")
 
-
-
     def telacheia(self, event):
         self.escfull = not self.escfull
         self.janela.attributes("-fullscreen", self.escfull)
@@ -68,7 +66,6 @@ class front:
         self.datas.append(self.datan)
         self.atend.destroy()
         self.telaatend()
-
 
     def incompleto(self):
         self.listaorg=", ".join(self.lista)
@@ -124,9 +121,7 @@ class front:
         self.qtn.delete(0,END)
         print(self.lista)
 
-
-
-    def botoes(self):
+    def botoes(self):       
         # frame para botoes
         self.cardapio = Frame(self.garcom)
         self.cardapio.place(x=20,y=120)
@@ -165,7 +160,7 @@ class front:
         self.add = Button(self.digitas,image=self.confirmar,command=self.quantidade,bg='#38312D',bd=0,)
         self.add.pack(side='left')
         #Botoes para delete 
-        self.returne = Button(self.garcom,image=self.voltf5,bg='#38312D',bd=0,)
+        self.returne = Button(self.garcom,image=self.voltf5,bg='#38312D',bd=0,command=self.botaoReturne)
         self.returne.place(x=1100,y=490)
         self.delete = customtkinter.CTkButton(
             self.garcom,
@@ -176,6 +171,7 @@ class front:
             corner_radius=15,
             width=57,
             height=57,
+            command=self.botaoX
         )
         self.delete.place(x=1025, y=485)
         # self.delete.place(x=950,y=425)
@@ -192,6 +188,20 @@ class front:
         self.Concluido = Button(self.garcom,image=self.concluido,command=self.incompleto,bg='#38312D',bd=0,)
         self.Concluido.place(x=900,y=575)
 
+    def botaoReturne(self):
+        self.Selecionar=self.itens.size()
+        if self.Selecionar  >0:
+            self.itens.delete(self.Selecionar-1)
+            self.lista.pop()
+        else:
+            print("deu erro irmão")
+
+    def botaoX(self):
+        if self.lista:
+            self.itens.delete(0,END)
+            self.lista.clear()
+        else:
+            print("X")
 
 
     def mostrar_info(self,data):
@@ -225,8 +235,6 @@ class front:
             corner_radius=30,
             )
         fechar.pack(pady=20)
-
-
 
     def f5(self):
         self.atend.withdraw()
@@ -267,6 +275,10 @@ class front:
     ## OUTRAS TELAS
     def telagarcom(self):
         self.garcom = Toplevel(self.janela)
+        if self.janela.attributes("-fullscreen"):
+            self.garcom.attributes("-fullscreen", True)
+        self.garcom.bind("<F11>", self.telacheia)
+        self.garcom.bind("<Escape>", self.window)
         self.garcom.geometry('1280x720')
         self.garcom.title("Garçom")
 
@@ -299,6 +311,10 @@ class front:
 
         # self.janelabarista.withdraw
         self.janelabarista = Toplevel(self.janela)
+        if self.janela.attributes("-fullscreen"):
+            self.janelabarista.attributes("-fullscreen", True)
+        self.janelabarista.bind("<F11>", self.telacheia)
+        self.janelabarista.bind("<Escape>", self.window)
         self.janela.withdraw()
         self.janelabarista.title("BARISTA")
         self.st=PhotoImage(file="img/seta.png")
@@ -344,6 +360,10 @@ class front:
 
     def telaatend(self):
         self.atend=Toplevel(self.janela)
+        if self.janela.attributes("-fullscreen"):
+            self.atend.attributes("-fullscreen", True)
+        self.atend.bind("<F11>", self.telacheia)
+        self.atend.bind("<Escape>", self.window)
         self.janela.withdraw()
         self.atend.title("Atendimentos")
         self.atend.geometry("1280x720")
@@ -445,5 +465,5 @@ if __name__ == "__main__":
     apli=front()
     apli.mysqlconnect()
     apli.telainicial()
-    apli.ativar()
+    apli.ativar()   
      
