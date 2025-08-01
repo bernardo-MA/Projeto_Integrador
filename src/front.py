@@ -170,7 +170,7 @@ class front:
         #add
         self.add = Button(self.botoesf,image=self.confirmar,command=self.quantidade,bg='#38312D',bd=0,)
         self.add.pack(side='left')
-        #delete 
+        #deletar
         self.returne = Button(self.garcom,image=self.voltf5,bg='#38312D',bd=0,command=self.botaoReturne)
         self.returne.place(x=1100,y=490)
         self.delete = customtkinter.CTkButton(
@@ -208,7 +208,7 @@ class front:
             self.itens.delete(0,END)
             self.lista.clear()
         else:
-            print("X")
+            print("X?")
 
 
     def mostrar_info(self,data):
@@ -254,8 +254,8 @@ class front:
         self.confmesa=self.qualmesa.get() 
         self.cur.execute('SELECT pedidocompl FROM barista WHERE pedidocompl LIKE %s',(f"{self.confmesa}%"))
         pedmesa=self.cur.fetchall()
-        self.pedmesabonito=", ".join(str(p[0]) for p in pedmesa)
-        self.cur.execute('INSERT INTO ordem (pedido) VALUES (%s)',(self.pedmesabonito) )
+        self.pedmesabonito="\n".join(str(p[0]) for p in pedmesa)
+        self.cur.execute('INSERT INTO ordem (pedido) VALUES (%s)',(self.pedmesabonito))
         self.cur.execute('DELETE FROM barista where pedidocompl LIKE %s', (f"{self.confmesa}%",))
 
         self.pedido=[]
@@ -304,8 +304,6 @@ class front:
         self.janela.withdraw()
 
     def telabarista(self):
-### MUDOU O JEITO DE CONIRMAR PEDIDO, criar uma entry que recebe o valor da mesa e ao confirmar apaga os dados do pedido daquela mesa e 
-## recarrega a pagina
 
         # self.janelabarista.withdraw
         self.janelabarista = Toplevel(self.janela)
