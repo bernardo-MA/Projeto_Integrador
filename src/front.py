@@ -25,6 +25,9 @@ class front:
         self.torta = PhotoImage(file='img/torta.png')
         self.pastel = PhotoImage(file='img/pastel.png')
         self.concluido = PhotoImage(file='img/botaoconcluido.png')
+        self.confirmar = PhotoImage(file='img/botaoconfirmar.png')
+        self.retorno = PhotoImage(file='img/f5.png')
+        self.lixeira = PhotoImage(file='img/lixeira.png')
         self.confirmar_o = Image.open("img/botaoconfirmar.png")
         self.confirmar_n = self.confirmar_o.resize((65,65))
         self.confirmar = ImageTk.PhotoImage(self.confirmar_n)
@@ -70,6 +73,8 @@ class front:
     def incompleto(self):
         self.listaorg=", ".join(self.lista)
         self.cur.execute('INSERT INTO barista (pedidocompl) VALUES (%s)',(self.listaorg,))
+        # viu? uma linha
+        # self.cur.execute('INSERT INTO ordem (pedido) VALUES (%s)',(self.listaorg,))
         self.lista.clear()
         self.garcom.destroy()
         self.telagarcom()
@@ -115,7 +120,8 @@ class front:
 
     def quantidade(self):
         self.qtns = self.qtn.get()
-        self.feito = (f'{self.qtns}x {self.produto}')
+        self.nnmesa = self.nmesa.get()
+        self.feito = (f'{self.nnmesa} - {self.qtns}x {self.produto}')
         self.lista.append (self.feito)
         self.itens.insert(END,self.feito)
         self.qtn.delete(0,END)
@@ -125,65 +131,66 @@ class front:
         # frame para botoes
         self.cardapio = Frame(self.garcom)
         self.cardapio.place(x=20,y=120)
-
-        self.digitas = Frame(self.garcom,bg='#38312D',bd=0,)
+        self.digitas = Frame(self.garcom,bg='white',bd=1)
         self.digitas.place(x=860,y=425)
+
+        self.mesaf = Frame(self.garcom,bg='#38312D')
+        self.mesaf.place(x=860,y=425)
+        self.qtnf = Frame(self.garcom,bg='#38312D')
+        self.qtnf.place(x=860,y=450)
+        self.botoesf = Frame(self.garcom)
+        self.botoesf.place(x=860,y=475)
         # Botoes do cardapio
         self.opção1 = Button(self.cardapio, image=self.expresso, command=self.Expresso,bg='#38312D',bd=0,activebackground='#38312D')
         self.opção1.pack(side='top')
-
         self.opção2 = Button(self.cardapio, image=self.cappuccino, command=self.Cappuccino,bg='#38312D',bd=0,activebackground='#38312D')
         self.opção2.pack(side='top')
-
         self.opção3 = Button(self.cardapio, image=self.latte, command=self.Latte,bg='#38312D',bd=0,activebackground='#38312D')
         self.opção3.pack(side='top')
-
         self.opção4 = Button(self.cardapio, image=self.mocca, command=self.Mocca,bg='#38312D',bd=0,activebackground='#38312D')
         self.opção4.pack(side='top')
-
         self.opção5 = Button(self.cardapio, image=self.torta, command=self.Torta,bg='#38312D',bd=0,activebackground='#38312D')
         self.opção5.pack(side='top')
-
         self.opção6 = Button(self.cardapio, image=self.pdq, command=self.Pdq,bg='#38312D',bd=0,activebackground='#38312D')
         self.opção6.pack(side='top')
-
         self.opção7 = Button(self.cardapio, image=self.pastel, command=self.Pastel,bg='#38312D',bd=0,activebackground='#38312D')
         self.opção7.pack(side='top')
 
-        #Botoes de quantidade 
-        self.qtnt = Label(self.digitas, text="Quantidade:",font=('Inknut Antiqua',15, 'bold'),fg="white",bg='#38312D')
-        self.qtnt.pack(side='top')
-
-        self.qtn = Entry(self.digitas, font=100, width=10)
-        self.qtn.pack(side='left')
-
-        self.add = Button(self.digitas,image=self.confirmar,command=self.quantidade,bg='#38312D',bd=0,)
+        #Botoes de Controle
+        #quantidade:
+        self.qtnt = Label(self.qtnf, text="Quantidade",font=('arial',15, 'bold'),fg="#D9D9D9",bg='#38312D')
+        self.qtnt.pack(side='left')
+        self.qtn = Entry(self.qtnf, font=100, width=15,bd =0)
+        self.qtn.pack(side='right')
+        #Mesa
+        self.mesa = Label(self.mesaf, text="Mesa",font=('arial',15, 'bold'),fg="#D9D9D9",bg='#38312D')
+        self.mesa.pack(side='left')
+        self.nmesa = Entry(self.mesaf, font=100, width=15,bd = 0)
+        self.nmesa.pack(side='right')
+        #add
+        self.add = Button(self.botoesf,image=self.confirmar,command=self.quantidade,bg='#38312D',bd=0,)
         self.add.pack(side='left')
-        #Botoes para delete 
+        #deletar
         self.returne = Button(self.garcom,image=self.voltf5,bg='#38312D',bd=0,command=self.botaoReturne)
         self.returne.place(x=1100,y=490)
         self.delete = customtkinter.CTkButton(
-            self.garcom,
+            self.botoesf,
             text="X",
             text_color="red",
             font=("Arial", 40, "bold"),
+            bg_color="#38312D",
             fg_color="#D9D9D9",
             corner_radius=15,
             width=57,
             height=57,
             command=self.botaoX
         )
-        self.delete.place(x=1025, y=485)
-        # self.delete.place(x=950,y=425)
+        self.delete.pack(side='right')
+        # self.delete.place(x=1025, y=485)
 
         #Lista do q estas a adicionar
         self.itens = Listbox(self.garcom,bg='#38312D',fg="#D9D9D9",font=("Inknut Antiqua", 12), width=30, height=6)
         self.itens.place(x=875, y=75)
-
-        #seta
-        self.seta = Button(self.garcom, image=self.st,command=self.incompleto,bg='#38312D',bd=0,)
-        self.seta.place(x=0,y=5)
-
         #Concluir
         self.Concluido = Button(self.garcom,image=self.concluido,command=self.incompleto,bg='#38312D',bd=0,)
         self.Concluido.place(x=900,y=575)
@@ -201,7 +208,7 @@ class front:
             self.itens.delete(0,END)
             self.lista.clear()
         else:
-            print("X")
+            print("X?")
 
 
     def mostrar_info(self,data):
@@ -247,8 +254,8 @@ class front:
         self.confmesa=self.qualmesa.get() 
         self.cur.execute('SELECT pedidocompl FROM barista WHERE pedidocompl LIKE %s',(f"{self.confmesa}%"))
         pedmesa=self.cur.fetchall()
-        self.pedmesabonito=", ".join(str(p[0]) for p in pedmesa)
-        self.cur.execute('INSERT INTO ordem (pedido) VALUES (%s)',(self.pedmesabonito) )
+        self.pedmesabonito="\n".join(str(p[0]) for p in pedmesa)
+        self.cur.execute('INSERT INTO ordem (pedido) VALUES (%s)',(self.pedmesabonito))
         self.cur.execute('DELETE FROM barista where pedidocompl LIKE %s', (f"{self.confmesa}%",))
 
         self.pedido=[]
@@ -281,19 +288,13 @@ class front:
         self.garcom.bind("<Escape>", self.window)
         self.garcom.geometry('1280x720')
         self.garcom.title("Garçom")
-
         self.garcom.config(background='#38312D')
-
-
         self.botoes()
-
-
         self.back=Button(self.garcom, image=self.st, command=self.voltar, bg="#38312D", borderwidth=0)
-        self.back.place(x=0, y=0)
-
-        self.nmenu = Label(self.garcom,text="GARÇOM",font=('Inknut Antiqua', 40, 'bold'),fg="#D9D9D9",bg='#38312D',)
-        self.nmenu.place(x=50,y=-35)
-        self.Itens = Label(self.garcom, text="Itens selecionados", font=('Inknut Antiqua', 12, 'bold'),fg="#D9D9D9",bg='#38312D',)
+        self.back.place(x=0, y=1)
+        self.nmenu = Label(self.garcom,text="GARÇOM",font=('Inknut Antiqua', 40,),fg="#D9D9D9",bg='#38312D',)
+        self.nmenu.place(x=50,y=-45)
+        self.Itens = Label(self.garcom, text="Itens selecionados", font=('Inknut Antiqua', 12,),fg="#D9D9D9",bg='#38312D',)
         self.Itens.place(x=875, y=40)
         linha1= Frame(self.garcom, bg="#D9D9D9", height=1, width=360)        
         linha1.place(x=15,y=100)
@@ -302,12 +303,7 @@ class front:
 
         self.janela.withdraw()
 
-
-
     def telabarista(self):
-### MUDOU O JEITO DE CONIRMAR PEDIDO, criar uma entry que recebe o valor da mesa e ao confirmar apaga os dados do pedido daquela mesa e 
-## recarrega a pagina
-
 
         # self.janelabarista.withdraw
         self.janelabarista = Toplevel(self.janela)
@@ -370,56 +366,170 @@ class front:
         self.atend.configure(bg="#38312D")
 
         titulo = Label(self.atend, text="ATENDIMENTOS", font=("Inknut Antiqua", 24, "bold"), fg="white", bg="#38312D")
-        titulo.pack(pady=(50, 10))
+        titulo.place(x=85,y=10)
+        #linhas
+        linha01 = Frame(self.atend, bg="#D9D9D9", height=3, width=750)
+        linha01.place(x=35,y=100)
+        linha02 = Frame(self.atend, bg = '#D9D9D9',height=685, width=3)
+        linha02.place(x=785,y=10)
+    
 
-        linha = Frame(self.atend, bg="#D9D9D9", height=2)
-        linha.pack(fill=X, padx=100, pady=(0, 30))
+        #listbox
+        self.notinhas = Listbox(self.atend,bg='#38312D',fg="#D9D9D9",font=("Inknut Antiqua", 12), width=60, height=12,highlightthickness=0,bd=0)
+        self.notinhas.place(x=50,y=110)
 
+        #texto para botoes de data
+        self.dia = "        Dia"
+        self.mes = "        Mês"
+        self.ano = "        Ano"
+        self.ate = Label(self.atend,text="ATÉ",font=("Inknut Antiqua", 24, "bold"), fg="white", bg="#38312D")
+        self.ate.place(x=975,y=130)
+        #Botoes para data minima
+        self.dia1 = Entry(self.atend,bd=1, font=(175), width=10)
+        self.dia1.place(x=825,y=110)
+        self.dia1.insert(0,self.dia)
+        self.dia1.bind("<FocusIn>", self.retirar1)
+        self.dia1.bind("<FocusOut>", self.colocar1)
+
+        self.mes1 = Entry(self.atend,bd=1, font=(175), width=10)
+        self.mes1.place(x=975,y=110)
+        self.mes1.insert(0,self.mes)
+        self.mes1.bind("<FocusIn>", self.retirar2)
+        self.mes1.bind("<FocusOut>", self.colocar2)
+
+        self.ano1 = Entry(self.atend,bd=1, font=(175), width=10)
+        self.ano1.place(x=1125,y=110)
+        self.ano1.insert(0,self.ano)
+        self.ano1.bind("<FocusIn>", self.retirar3)
+        self.ano1.bind("<FocusOut>", self.colocar3)
+
+        #Botoes para data maxima
+        self.dia2 = Entry(self.atend,bd=1, font=(175), width=10)
+        self.dia2.place(x=825,y=210)
+        self.dia2.insert(0,self.dia)
+        self.dia2.bind("<FocusIn>", self.retirar4)
+        self.dia2.bind("<FocusOut>", self.colocar4)
+
+        self.mes2 = Entry(self.atend,bd=1, font=(175), width=10)
+        self.mes2.place(x=975,y=210)
+        self.mes2.insert(0,self.mes)
+        self.mes2.bind("<FocusIn>", self.retirar5)
+        self.mes2.bind("<FocusOut>", self.colocar5)
+
+        self.ano2 = Entry(self.atend,bd=1, font=(175), width=10)
+        self.ano2.place(x=1125,y=210)
+        self.ano2.insert(0,self.ano)
+        self.ano2.bind("<FocusIn>", self.retirar6)
+        self.ano2.bind("<FocusOut>", self.colocar6)
+
+        #Buscar
+        Busca = Button(self.atend, image=self.concluido,borderwidth=0,bg="#38312D", command=self.busca)
+        Busca.place(x=863,y=350)
+        #voltar
         seta=Button(self.atend, image=self.st,borderwidth=0,bg="#38312D", command=self.voltar)
         seta.place(x=1,y=1)
-
-        frame_datas = Frame(self.atend, bg="#38312D")
-        frame_datas.pack()
-
-        adddatas=Label(
-            self.atend,
-            text="Insira a nova data:",
-            font=("Inknut Antiqua", 20),
-            fg="#D9D9D9",
-            bg="#38312D",
-                       )
-        adddatas.place(x=990, y=440)
-        self.dtnova=Entry(
-            self.atend,
-            width=20,
-        )
-        self.dtnova.place(x=1070, y=500)
-        self.fbc=PhotoImage(file="img/botaoconfirmar.png")
-        confdtnova=Button(
-            self.atend,
-            image=self.fbc,
-            bg="#38312D",
-            borderwidth=0,
-            command=self.confirmardata,
-        )
-        confdtnova.place(x=1100, y=530)
+    #buscar
+    def busca(self):
+        self.idia = self.dia1.get();self.imes = self.mes1.get(); self.iano = self.ano1.get()
+        self.mdia = self.dia2.get();self.mmes = self.mes2.get(); self.mano = self.ano2.get()
+        self.cur.execute(f"select pedido from ordem where hora between '{self.iano}-{self.imes}-{self.idia} 00:00:00' and '{self.mano}-{self.mmes}-{self.mdia} 23:59:59'")
+        self.Tudo = self.cur.fetchall()
+        self.notinhas.delete(0,END)
+        y=1
+        for x in self.Tudo:
+            itens = "".join(x)
+            self.notinhas.insert(y,itens)
+            y=y+1
 
 
-        for i, data in enumerate(self.datas):
-            botao = customtkinter.CTkButton(
-                                            frame_datas, 
-                                            text=data, 
-                                            font=("Arial", 20, "bold"), 
-                                            fg_color="#D9D9D9", 
-                                            text_color="#38312D",
-                                            width=100, 
-                                            height=50, 
-                                            command=lambda d=data: self.mostrar_info(d), 
-                                            corner_radius=30
-                                            )
-            botao.grid(row=i//3, column=i%3, padx=10, pady=10)
 
 
+    #textinho dos botoes
+    def retirar1(self,event):
+        if self.dia1.get() == self.dia:
+            self.dia1.delete(0,END)
+    def colocar1(self,event):
+        if self.dia1.get() == "":
+            self.dia1.insert(0,self.dia)
+
+    def retirar2(self,event):
+        if self.mes1.get() == self.mes:
+            self.mes1.delete(0,END)
+    def colocar2(self,event):
+        if self.mes1.get() == "":
+            self.mes1.insert(0,self.mes)
+
+    def retirar3(self,event):
+        if self.ano1.get() == self.ano:
+            self.ano1.delete(0,END)
+    def colocar3(self,event):
+        if self.ano1.get() == "":
+            self.ano1.insert(0,self.ano)
+
+    def retirar4(self,event):
+        if self.dia2.get() == self.dia:
+            self.dia2.delete(0,END)
+    def colocar4(self,event):
+        if self.dia2.get() == "":
+            self.dia2.insert(0,self.dia)
+
+    def retirar5(self,event):
+        if self.mes2.get() == self.mes:
+            self.mes2.delete(0,END)
+    def colocar5(self,event):
+        if self.mes2.get() == "":
+            self.mes2.insert(0,self.mes)
+
+    def retirar6(self,event):
+        if self.ano2.get() == self.ano:
+            self.ano2.delete(0,END)
+    def colocar6(self,event):
+        if self.ano2.get() == "":
+            self.ano2.insert(0,self.ano)
+
+
+
+
+        # frame_datas = Frame(self.atend, bg="#38312D")
+        # frame_datas.pack()
+
+        # adddatas=Label(
+        #     self.atend,
+        #     text="Insira a nova data:",
+        #     font=("Inknut Antiqua", 20),
+        #     fg="#D9D9D9",
+        #     bg="#38312D",
+        #                )
+        # adddatas.place(x=990, y=440)
+        # self.dtnova=Entry(
+        #     self.atend,
+        #     width=20,
+        # )
+        # self.dtnova.place(x=1070, y=500)
+        # self.fbc=PhotoImage(file="img/botaoconfirmar.png")
+        # confdtnova=Button(
+        #     self.atend,
+        #     image=self.fbc,
+        #     bg="#38312D",
+        #     borderwidth=0,
+        #     command=self.confirmardata,
+        # )
+        # confdtnova.place(x=1100, y=530)
+
+
+        # for i, data in enumerate(self.datas):
+        #     botao = customtkinter.CTkButton(
+        #                                     frame_datas, 
+        #                                     text=data, 
+        #                                     font=("Arial", 20, "bold"), 
+        #                                     fg_color="#D9D9D9", 
+        #                                     text_color="#38312D",
+        #                                     width=100, 
+        #                                     height=50, 
+        #                                     command=lambda d=data: self.mostrar_info(d), 
+        #                                     corner_radius=30
+        #                                     )
+        #     botao.grid(row=i//3, column=i%3, padx=10, pady=10)
 
     ##TELA INCIAL
     def telainicial(self):

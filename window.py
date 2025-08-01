@@ -3,10 +3,10 @@ from tkinter import *
 window = Tk()
 window.geometry("720x720")
 window.title("AMOGUS")
-icon = PhotoImage(file='logo.png')
+icon = PhotoImage(file='img/logo.png')
 window.iconphoto(True, icon)
 window.config(background="#38312D")
-photo = PhotoImage(file='logo.png')
+photo = PhotoImage(file='img/logo.png')
 
 label = Label(window,
                text="Hello World!",
