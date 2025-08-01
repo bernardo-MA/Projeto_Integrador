@@ -73,8 +73,6 @@ class front:
     def incompleto(self):
         self.listaorg=", ".join(self.lista)
         self.cur.execute('INSERT INTO barista (pedidocompl) VALUES (%s)',(self.listaorg,))
-        # viu? uma linha
-        # self.cur.execute('INSERT INTO ordem (pedido) VALUES (%s)',(self.listaorg,))
         self.lista.clear()
         self.garcom.destroy()
         self.telagarcom()
@@ -372,7 +370,6 @@ class front:
         linha01.place(x=35,y=100)
         linha02 = Frame(self.atend, bg = '#D9D9D9',height=685, width=3)
         linha02.place(x=785,y=10)
-    
 
         #listbox
         self.notinhas = Listbox(self.atend,bg='#38312D',fg="#D9D9D9",font=("Inknut Antiqua", 12), width=60, height=12,highlightthickness=0,bd=0)
@@ -441,9 +438,6 @@ class front:
             self.notinhas.insert(y,itens)
             y=y+1
 
-
-
-
     #textinho dos botoes
     def retirar1(self,event):
         if self.dia1.get() == self.dia:
@@ -486,50 +480,6 @@ class front:
     def colocar6(self,event):
         if self.ano2.get() == "":
             self.ano2.insert(0,self.ano)
-
-
-
-
-        # frame_datas = Frame(self.atend, bg="#38312D")
-        # frame_datas.pack()
-
-        # adddatas=Label(
-        #     self.atend,
-        #     text="Insira a nova data:",
-        #     font=("Inknut Antiqua", 20),
-        #     fg="#D9D9D9",
-        #     bg="#38312D",
-        #                )
-        # adddatas.place(x=990, y=440)
-        # self.dtnova=Entry(
-        #     self.atend,
-        #     width=20,
-        # )
-        # self.dtnova.place(x=1070, y=500)
-        # self.fbc=PhotoImage(file="img/botaoconfirmar.png")
-        # confdtnova=Button(
-        #     self.atend,
-        #     image=self.fbc,
-        #     bg="#38312D",
-        #     borderwidth=0,
-        #     command=self.confirmardata,
-        # )
-        # confdtnova.place(x=1100, y=530)
-
-
-        # for i, data in enumerate(self.datas):
-        #     botao = customtkinter.CTkButton(
-        #                                     frame_datas, 
-        #                                     text=data, 
-        #                                     font=("Arial", 20, "bold"), 
-        #                                     fg_color="#D9D9D9", 
-        #                                     text_color="#38312D",
-        #                                     width=100, 
-        #                                     height=50, 
-        #                                     command=lambda d=data: self.mostrar_info(d), 
-        #                                     corner_radius=30
-        #                                     )
-        #     botao.grid(row=i//3, column=i%3, padx=10, pady=10)
 
     ##TELA INCIAL
     def telainicial(self):
