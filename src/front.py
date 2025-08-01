@@ -73,7 +73,8 @@ class front:
     def incompleto(self):
         self.listaorg=", ".join(self.lista)
         self.cur.execute('INSERT INTO barista (pedidocompl) VALUES (%s)',(self.listaorg,))
-        self.cur.execute('INSERT INTO barista (pedido) VALUES (%s)',(self.listaorg,))
+        # viu? uma linha
+        # self.cur.execute('INSERT INTO ordem (pedido) VALUES (%s)',(self.listaorg,))
         self.lista.clear()
         self.garcom.destroy()
         self.telagarcom()
@@ -376,13 +377,13 @@ class front:
     
 
         #listbox
-        self.notinhas = Listbox(self.atend,bg='#38312D',fg="#D9D9D9",font=("Inknut Antiqua", 12), width=60, height=12)
+        self.notinhas = Listbox(self.atend,bg='#38312D',fg="#D9D9D9",font=("Inknut Antiqua", 12), width=60, height=12,highlightthickness=0,bd=0)
         self.notinhas.place(x=50,y=110)
 
         #texto para botoes de data
-        self.dia = "Dia"
-        self.mes = "Mês"
-        self.ano = "Ano"
+        self.dia = "        Dia"
+        self.mes = "        Mês"
+        self.ano = "        Ano"
         self.ate = Label(self.atend,text="ATÉ",font=("Inknut Antiqua", 24, "bold"), fg="white", bg="#38312D")
         self.ate.place(x=975,y=130)
         #Botoes para data minima
@@ -425,7 +426,7 @@ class front:
 
         #Buscar
         Busca = Button(self.atend, image=self.concluido,borderwidth=0,bg="#38312D", command=self.busca)
-        Busca.place(x=975,y=350)
+        Busca.place(x=863,y=350)
         #voltar
         seta=Button(self.atend, image=self.st,borderwidth=0,bg="#38312D", command=self.voltar)
         seta.place(x=1,y=1)
@@ -434,9 +435,8 @@ class front:
         self.idia = self.dia1.get();self.imes = self.mes1.get(); self.iano = self.ano1.get()
         self.mdia = self.dia2.get();self.mmes = self.mes2.get(); self.mano = self.ano2.get()
         self.cur.execute(f"select pedido from ordem where hora between '{self.iano}-{self.imes}-{self.idia} 00:00:00' and '{self.mano}-{self.mmes}-{self.mdia} 23:59:59'")
-        self.Tudo = self.cur.fetchall
+        self.Tudo = self.cur.fetchall()
         self.notinhas.delete(0,END)
-        print(self.Tudo)
         y=1
         for x in self.Tudo:
             itens = "".join(x)
