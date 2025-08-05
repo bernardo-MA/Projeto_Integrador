@@ -55,14 +55,14 @@ class front:
         self.janela.attributes("-fullscreen", False)
 
     ##FUNÇOES BOTOES
-    # def confirmardata(self):    
-    #     self.datan = self.dtnova.get()
-    #     self.datas.append(self.datan)
-    #     self.atend.destroy()
-    #     self.telaatend()
+    def confirmardata(self):    
+        self.datan = self.dtnova.get()
+        self.datas.append(self.datan)
+        self.atend.destroy()
+        self.telaatend()
 
     def incompleto(self):
-        self.listaorg=", ".join(self.lista[0])
+        self.listaorg=", ".join(self.lista)
         self.cur.execute('INSERT INTO barista (pedidocompl) VALUES (%s)',(self.listaorg,))
         self.lista.clear()
         self.garcom.destroy()
@@ -306,43 +306,35 @@ class front:
         for item in ped:
             self.pedido.append(item[0])
         self.mostpedido="\n".join(self.pedido)
-        print("mostpedido : ",self.mostpedido)
 
         self.fbc=PhotoImage(file="img/botaoconfirmar.png")
         self.fbcp=PhotoImage(file="img/confirmarpequeno.png")
 
-        # mostrarpedido=Label(self.janelabarista, text=self.mostpedido, font=("Inknut Antiqua Regular", 20), fg="#D9D9D9", bg="#38312D")
-        # mostrarpedido.grid(row=4, column=0,padx=4,pady=3)
-
-        mostrarpedidol=Listbox(self.janelabarista, bg="#38312D", fg="#D9D9D9", font=("Inknut Antiqua", 16), width=35, height=10)
-        mostrarpedidol.config(selectbackground="#38312D")
-        mostrarpedidol.place(x=64, y=146)
+        pedidotexto=Text(self.janelabarista, wrap=WORD, bg="#38312D", fg="#D9D9D9", font=("Inknut Antiqua", 14), width=43, height=20, border=0, borderwidth=0)
+        pedidotexto.insert(END, self.mostpedido)
+        pedidotexto.place(x=65, y=146)
 
 
-        textoconf=Label(self.janelabarista, text="MESA CONFIRMADA", font=("Inknut Antiqua", 18), fg="#D9D9D9", bg="#38312D")
-        textoconf.place(x=793, y=174)
+        textoconf=Label(self.janelabarista, text="MESA CONFIRMADA", font=("Inknut Antiqua", 23), fg="#D9D9D9", bg="#38312D")
+        textoconf.place(x=733, y=174)
 
-        self.qualmesa=Entry(self.janelabarista, font=30, width=8, bg="#816B5F")  
-        self.qualmesa.place(x=840, y=256)
+        self.qualmesa=Entry(self.janelabarista, font=30, width=10, bg="#D9D9D9")
+        self.qualmesa.place(x=840, y=258)
 
         confirmarpedido=Button(self.janelabarista, image=self.fbcp, borderwidth=0, cursor="hand2", command=self.confirmbar, bg="#38312D")
         confirmarpedido.place(x=995, y=250)
 
-
         seta=Button(self.janelabarista, image=self.st,borderwidth=0,bg="#38312D", command=self.voltar)
-        seta.grid(row=0, column=0, pady=2, padx=2, sticky="w")
+        seta.place(x=6, y=4)
 
         jan=Label(self.janelabarista, text="BARISTA", font=("Inknut Antiqua", 30), fg="#D9D9D9", bg="#38312D")
         jan.place(x=64, y=28)
 
-        linhab= Frame(self.janelabarista, bg="#D9D9D9", height=1, width=1200)        
+        linhab= Frame(self.janelabarista, bg="#D9D9D9", height=1, width=1144)        
         linhab.place(x=64, y=121)
 
-        linhah=Frame(self.janelabarista, bg="#D9D9D9", height= 500, width=1)
+        linhah=Frame(self.janelabarista, bg="#D9D9D9", width=1, height=500)
         linhah.place(x=640, y=146)
-
-        linham=Frame(self.janelabarista, bg="#D9D9D9", height=1, width=486)
-        linham.place(x=708, y=299)
 
 
     def telaatend(self):
