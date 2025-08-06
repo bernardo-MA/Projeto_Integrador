@@ -315,7 +315,7 @@ class front:
         self.fbc=PhotoImage(file="img/botaoconfirmar.png")
         self.fbcp=PhotoImage(file="img/confirmarpequeno.png")
 
-        pedidotexto=Text(self.janelabarista, wrap=WORD, bg="#38312D", fg="#D9D9D9", font=("Inknut Antiqua", 14), width=43, height=20, border=0, borderwidth=0)
+        pedidotexto=Text(self.janelabarista, wrap=WORD, bg="#38312D", fg="#D9D9D9", font=("Inknut Antiqua", 14), width=41, height=20, border=0, borderwidth=0)
         pedidotexto.insert(END, self.mostpedido)
         pedidotexto.place(x=65, y=146)
 
