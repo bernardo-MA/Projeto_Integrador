@@ -15,6 +15,7 @@ class front:
         self.pedido=[]
         self.datas = ["2025-07-28"]
         self.lista=[]
+        self.mmmesa = ''
 
         ##IMAGENS
         self.expresso = PhotoImage(file='img/expresso.png')
@@ -110,7 +111,6 @@ class front:
     def quantidade(self):
         self.qtns = self.qtn.get()
         self.nnmesa = self.nmesa.get()
-        self.feito = (f'{self.nnmesa} - {self.qtns}x {self.produto}')
         self.lista.append (self.feito)
         self.itens.insert(END,self.feito)
         self.qtn.delete(0,END)
