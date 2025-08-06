@@ -111,6 +111,11 @@ class front:
     def quantidade(self):
         self.qtns = self.qtn.get()
         self.nnmesa = self.nmesa.get()
+        if self.mmmesa != self.nnmesa:
+            self.mmmesa = self.nnmesa
+            self.feito = (f'{self.nnmesa} - {self.qtns}x {self.produto}')
+        else:
+            self.feito = (f'{self.qtns}x {self.produto}')
         self.lista.append (self.feito)
         self.itens.insert(END,self.feito)
         self.qtn.delete(0,END)
