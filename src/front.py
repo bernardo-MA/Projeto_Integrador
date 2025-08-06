@@ -56,18 +56,13 @@ class front:
         self.janela.attributes("-fullscreen", False)
 
     ##FUNÇOES BOTOES
-    def confirmardata(self):    
-        self.datan = self.dtnova.get()
-        self.datas.append(self.datan)
-        self.atend.destroy()
-        self.telaatend()
+
 
     def incompleto(self):
         self.listaorg=", ".join(self.lista)
         self.cur.execute('INSERT INTO barista (pedidocompl) VALUES (%s)',(self.listaorg,))
         self.lista.clear()
-        self.garcom.destroy()
-        self.telagarcom()
+        self.itens.delete(0, END)
 
     def Outro(self):
         self.opção1.config(bg="#38312D");self.opção1.config(state=NORMAL)
@@ -240,10 +235,10 @@ class front:
             print("Não selecionaste a mesa")
         else:
             self.cur.execute('DELETE FROM barista where pedidocompl LIKE %s', (f"{self.confmesa}%",))
+            self.pedidotexto.delete("1.0", END)
 
         self.pedido=[]
-        self.janelabarista.destroy()
-        self.telabarista()
+
 
     def voltar(self):
         try:
@@ -288,7 +283,7 @@ class front:
 
     def telabarista(self):
 
-        # self.janelabarista.withdraw
+        
         self.janelabarista = Toplevel(self.janela)
         if self.janela.attributes("-fullscreen"):
             self.janelabarista.attributes("-fullscreen", True)
@@ -315,9 +310,16 @@ class front:
         self.fbc=PhotoImage(file="img/botaoconfirmar.png")
         self.fbcp=PhotoImage(file="img/confirmarpequeno.png")
 
-        pedidotexto=Text(self.janelabarista, wrap=WORD, bg="#38312D", fg="#D9D9D9", font=("Inknut Antiqua", 14), width=41, height=20, border=0, borderwidth=0)
-        pedidotexto.insert(END, self.mostpedido)
-        pedidotexto.place(x=65, y=146)
+        self.pedidotexto=Text(self.janelabarista, 
+                         wrap=WORD, 
+                         bg="#38312D", 
+                         fg="#D9D9D9", 
+                         font=("Inknut Antiqua", 14), 
+                         width=41, height=20, 
+                         border=0, borderwidth=0)
+        
+        self.pedidotexto.insert(END, self.mostpedido)
+        self.pedidotexto.place(x=65, y=146)
 
 
         textoconf=Label(self.janelabarista, text="MESA CONFIRMADA", font=("Inknut Antiqua", 23), fg="#D9D9D9", bg="#38312D")
@@ -353,7 +355,7 @@ class front:
         self.atend.geometry("1280x720")
         self.atend.configure(bg="#38312D")
 
-        titulo = Label(self.atend, text="ATENDIMENTOS", font=("Inknut Antiqua", 24, "bold"), fg="white", bg="#38312D")
+        titulo = Label(self.atend, text="ATENDIMENTOS", font=("Inknut Antiqua", 24, "bold"), fg="#D9D9D9", bg="#38312D")
         titulo.place(x=85,y=10)
         #linhas
         linha01 = Frame(self.atend, bg="#D9D9D9", height=3, width=750)
@@ -480,7 +482,7 @@ class front:
         self.icon = PhotoImage(file='img/engrenagem.png')
         self.janela.iconphoto(True, self.icon)
         self.janela.geometry("1280x720")
-        # self.janela.resizable(False,False)
+
 
         ## TEXTOS
         logo = Label (self.janela, text= "STEAMCOFFEE", font=("Inknut Antiqua Regular", 54), fg="#D9D9D9", bg="#38312D")        
