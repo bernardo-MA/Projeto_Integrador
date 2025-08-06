@@ -1,8 +1,5 @@
-from tkinter import *
-from conexaob import conecta
-import pymysql
-from pymysql import Error
-from PIL import Image, ImageTk
-import customtkinter
+tkinter
+pymysql
+pillow
+customtkinter
 
-pip install tkinter pymysql pillow customtkinter
