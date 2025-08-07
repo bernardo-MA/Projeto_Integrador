@@ -62,6 +62,7 @@ class front:
         self.listaorg=", ".join(self.lista)
         self.cur.execute('INSERT INTO barista (pedidocompl) VALUES (%s)',(self.listaorg,))
         self.lista.clear()
+        self.nmesa.delete(0,END)
         self.itens.delete(0, END)
 
     def Outro(self):
@@ -234,8 +235,14 @@ class front:
             print("Não selecionaste a mesa")
         else:
             self.cur.execute('DELETE FROM barista where pedidocompl LIKE %s', (f"{self.confmesa}%",))
-            self.pedidotexto.delete("1.0", END)
-        self.pedido=[]
+            # self.pedidotexto.delete("1.0", END)
+            textoTotal = self.pedidotexto.get("1.0", "end-1c")  
+            linhas = textoTotal.split("\n")
+            novasLinhas = [linha for linha in linhas if not linha.strip().startswith(f"{self.confmesa}")]
+            # novoTexto = textoTotal.replace(self.mostpedido + "\n", "")  
+            self.pedidotexto.delete("1.0", "end")  
+            self.pedidotexto.insert("1.0", "\n".join(novasLinhas))  
+            self.pedido=[]
 
 
     def voltar(self):
