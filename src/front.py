@@ -15,6 +15,7 @@ class front:
         self.pedido=[]
         self.datas = ["2025-07-28"]
         self.lista=[]
+        self.mmmesa = ''
 
         ##IMAGENS
         self.expresso = PhotoImage(file='img/expresso.png')
@@ -26,19 +27,10 @@ class front:
         self.pastel = PhotoImage(file='img/pastel.png')
         self.concluido = PhotoImage(file='img/botaoconcluido.png')
         self.confirmar = PhotoImage(file='img/botaoconfirmar.png')
-        self.retorno = PhotoImage(file='img/f5.png')
+        self.retorno = PhotoImage(file='img/return.png')
         self.lixeira = PhotoImage(file='img/lixeira.png')
-        self.confirmar_o = Image.open("img/botaoconfirmar.png")
-        self.confirmar_n = self.confirmar_o.resize((65,65))
-        self.confirmar = ImageTk.PhotoImage(self.confirmar_n)
-        self.retorno_o = Image.open("img/f5.png")
-        self.retorno_n = self.retorno_o.resize((125,125))
-        self.retorno = ImageTk.PhotoImage(self.retorno_n)
-        self.lixeira_o = Image.open("img/lixeira.png")
-        self.lixeira_n = self.lixeira_o.resize((65,65))
-        self.lixeira = ImageTk.PhotoImage(self.lixeira_n)
         self.voltf5=PhotoImage(file="img/f5.png")
-
+        self.mais = PhotoImage(file="img/mais.png")
 
     def mysqlconnect(self):
         try:
@@ -64,18 +56,13 @@ class front:
         self.janela.attributes("-fullscreen", False)
 
     ##FUNÇOES BOTOES
-    def confirmardata(self):    
-        self.datan = self.dtnova.get()
-        self.datas.append(self.datan)
-        self.atend.destroy()
-        self.telaatend()
+
 
     def incompleto(self):
         self.listaorg=", ".join(self.lista)
         self.cur.execute('INSERT INTO barista (pedidocompl) VALUES (%s)',(self.listaorg,))
         self.lista.clear()
-        self.garcom.destroy()
-        self.telagarcom()
+        self.itens.delete(0, END)
 
     def Outro(self):
         self.opção1.config(bg="#38312D");self.opção1.config(state=NORMAL)
@@ -119,7 +106,11 @@ class front:
     def quantidade(self):
         self.qtns = self.qtn.get()
         self.nnmesa = self.nmesa.get()
-        self.feito = (f'{self.nnmesa} - {self.qtns}x {self.produto}')
+        if self.mmmesa != self.nnmesa:
+            self.mmmesa = self.nnmesa
+            self.feito = (f'{self.nnmesa} - {self.qtns}x {self.produto}')
+        else:
+            self.feito = (f'{self.qtns}x {self.produto}')
         self.lista.append (self.feito)
         self.itens.insert(END,self.feito)
         self.qtn.delete(0,END)
@@ -137,7 +128,7 @@ class front:
         self.qtnf = Frame(self.garcom,bg='#38312D')
         self.qtnf.place(x=860,y=450)
         self.botoesf = Frame(self.garcom)
-        self.botoesf.place(x=860,y=475)
+        self.botoesf.place(x=860,y=500)
         # Botoes do cardapio
         self.opção1 = Button(self.cardapio, image=self.expresso, command=self.Expresso,bg='#38312D',bd=0,activebackground='#38312D')
         self.opção1.pack(side='top')
@@ -156,36 +147,22 @@ class front:
 
         #Botoes de Controle
         #quantidade:
-        self.qtnt = Label(self.qtnf, text="Quantidade",font=('arial',15, 'bold'),fg="#D9D9D9",bg='#38312D')
+        self.qtnt = Label(self.qtnf, text="Quantidade ",font=('arial',15, 'bold'),fg="#D9D9D9",bg='#38312D')
         self.qtnt.pack(side='left')
         self.qtn = Entry(self.qtnf, font=100, width=15,bd =0)
         self.qtn.pack(side='right')
         #Mesa
-        self.mesa = Label(self.mesaf, text="Mesa",font=('arial',15, 'bold'),fg="#D9D9D9",bg='#38312D')
+        self.mesa = Label(self.mesaf, text="Mesa ",font=('arial',15, 'bold'),fg="#D9D9D9",bg='#38312D')
         self.mesa.pack(side='left')
         self.nmesa = Entry(self.mesaf, font=100, width=15,bd = 0)
         self.nmesa.pack(side='right')
-        #add
-        self.add = Button(self.botoesf,image=self.confirmar,command=self.quantidade,bg='#38312D',bd=0,)
-        self.add.pack(side='left')
-        #deletar
-        self.returne = Button(self.garcom,image=self.voltf5,bg='#38312D',bd=0,command=self.botaoReturne)
-        self.returne.place(x=1100,y=490)
-        self.delete = customtkinter.CTkButton(
-            self.botoesf,
-            text="X",
-            text_color="red",
-            font=("Arial", 40, "bold"),
-            bg_color="#38312D",
-            fg_color="#D9D9D9",
-            corner_radius=15,
-            width=57,
-            height=57,
-            command=self.botaoX
-        )
+        #deletar,retornar e adicionar
+        self.delete = Button(self.botoesf,image=self.lixeira,bg='#38312D',bd=0,command=self.botaoX)
         self.delete.pack(side='right')
-        # self.delete.place(x=1025, y=485)
-
+        self.returne = Button(self.botoesf,image=self.retorno,bg='#38312D',bd=0,command=self.botaoReturne)
+        self.returne.pack(side='right')
+        self.add = Button(self.botoesf,image=self.mais,command=self.quantidade,bg='#38312D',bd=0,)
+        self.add.pack(side='left')
         #Lista do q estas a adicionar
         self.itens = Listbox(self.garcom,bg='#38312D',fg="#D9D9D9",font=("Inknut Antiqua", 12), width=30, height=6)
         self.itens.place(x=875, y=75)
@@ -248,17 +225,18 @@ class front:
         self.janela.deiconify()
 
     def confirmbar(self):
-        
         self.confmesa=self.qualmesa.get() 
         self.cur.execute('SELECT pedidocompl FROM barista WHERE pedidocompl LIKE %s',(f"{self.confmesa}%"))
         pedmesa=self.cur.fetchall()
         self.pedmesabonito="\n".join(str(p[0]) for p in pedmesa)
         self.cur.execute('INSERT INTO ordem (pedido) VALUES (%s)',(self.pedmesabonito))
-        self.cur.execute('DELETE FROM barista where pedidocompl LIKE %s', (f"{self.confmesa}%",))
-
+        if self.confmesa == "":
+            print("Não selecionaste a mesa")
+        else:
+            self.cur.execute('DELETE FROM barista where pedidocompl LIKE %s', (f"{self.confmesa}%",))
+            self.pedidotexto.delete("1.0", END)
         self.pedido=[]
-        self.janelabarista.destroy()
-        self.telabarista()
+
 
     def voltar(self):
         try:
@@ -303,7 +281,7 @@ class front:
 
     def telabarista(self):
 
-        # self.janelabarista.withdraw
+        
         self.janelabarista = Toplevel(self.janela)
         if self.janela.attributes("-fullscreen"):
             self.janelabarista.attributes("-fullscreen", True)
@@ -328,28 +306,49 @@ class front:
         self.mostpedido="\n".join(self.pedido)
 
         self.fbc=PhotoImage(file="img/botaoconfirmar.png")
+        self.fbcp=PhotoImage(file="img/confirmarpequeno.png")
 
-        mostrarpedido=Label(self.janelabarista, text=self.mostpedido, font=("Inknut Antiqua Regular", 20), fg="#D9D9D9", bg="#38312D")
-        mostrarpedido.grid(row=4, column=0,padx=4,pady=3)
+        self.pedidotexto=Text(self.janelabarista, 
+                         wrap=WORD, 
+                         bg="#38312D", 
+                         fg="#D9D9D9", 
+                         font=("Inknut Antiqua", 14), 
+                         width=41, height=20, 
+                         border=0, borderwidth=0)
+        
+        self.pedidotexto.insert(END, self.mostpedido)
+        self.pedidotexto.place(x=65, y=146)
 
-        textoconf=Label(self.janelabarista, text="QUAL MESA DESEJA CONFIRMAR", font=("Inknut Antiqua", 23), fg="#D9D9D9", bg="#38312D")
-        textoconf.grid(row=4, column=5, padx=3)
 
-        self.qualmesa=Entry(self.janelabarista, font=30, width=5)
-        self.qualmesa.grid(row=5, column=5, pady=2,padx=4)   
+        textoconf=Label(self.janelabarista, text="MESA CONFIRMADA", 
+                        font=("Inknut Antiqua", 23), fg="#D9D9D9", 
+                        bg="#38312D")
+        textoconf.place(x=733, y=174)
 
-        confirmarpedido=Button(self.janelabarista, image=self.fbc, borderwidth=0, cursor="hand2", command=self.confirmbar, bg="#38312D")
-        confirmarpedido.grid(row=6, column=5, padx=3, pady=3)
+        self.qualmesa=Entry(self.janelabarista, 
+                            font=30, width=10, 
+                            bg="#D9D9D9")
+        self.qualmesa.place(x=840, y=258)
 
+        confirmarpedido=Button(self.janelabarista, image=self.fbcp, 
+                               borderwidth=0, cursor="hand2", 
+                               command=self.confirmbar, bg="#38312D")
+        confirmarpedido.place(x=995, y=250)
 
-        seta=Button(self.janelabarista, image=self.st,borderwidth=0,bg="#38312D", command=self.voltar)
-        seta.grid(row=0, column=0, pady=2, padx=2, sticky="w")
+        seta=Button(self.janelabarista, image=self.st,borderwidth=0,
+                    bg="#38312D", command=self.voltar)
+        seta.place(x=6, y=4)
 
-        jan=Label(self.janelabarista, text="BARISTA", font=("Inknut Antiqua Regular", 24), fg="#D9D9D9", bg="#38312D")
-        jan.grid(row=1, column=0, pady=3)
+        jan=Label(self.janelabarista, text="BARISTA", 
+                  font=("Inknut Antiqua", 30), fg="#D9D9D9", 
+                  bg="#38312D")
+        jan.place(x=64, y=28)
 
-        linhab= Frame(self.janelabarista, bg="#D9D9D9", height=1, width=500)        
-        linhab.grid(row=3, column=0, pady=3)
+        linhab= Frame(self.janelabarista, bg="#D9D9D9", height=1, width=1144)        
+        linhab.place(x=64, y=121)
+
+        linhah=Frame(self.janelabarista, bg="#D9D9D9", width=1, height=500)
+        linhah.place(x=640, y=146)
 
 
     def telaatend(self):
@@ -363,7 +362,7 @@ class front:
         self.atend.geometry("1280x720")
         self.atend.configure(bg="#38312D")
 
-        titulo = Label(self.atend, text="ATENDIMENTOS", font=("Inknut Antiqua", 24, "bold"), fg="white", bg="#38312D")
+        titulo = Label(self.atend, text="ATENDIMENTOS", font=("Inknut Antiqua", 24, "bold"), fg="#D9D9D9", bg="#38312D")
         titulo.place(x=85,y=10)
         #linhas
         linha01 = Frame(self.atend, bg="#D9D9D9", height=3, width=750)
@@ -372,18 +371,25 @@ class front:
         linha02.place(x=785,y=10)
 
         #listbox
-        self.notinhas = Listbox(self.atend,bg='#38312D',fg="#D9D9D9",font=("Inknut Antiqua", 12), width=60, height=12,highlightthickness=0,bd=0)
+        self.notinhas = Listbox(self.atend,bg='#38312D',
+                                fg="#D9D9D9",
+                                font=("Inknut Antiqua", 12), 
+                                width=60, height=12,
+                                highlightthickness=0,bd=0)
         self.notinhas.place(x=50,y=110)
 
         #texto para botoes de data
         self.dia = "        Dia"
         self.mes = "        Mês"
         self.ano = "        Ano"
-        self.ate = Label(self.atend,text="ATÉ",font=("Inknut Antiqua", 24, "bold"), fg="white", bg="#38312D")
+        self.ate = Label(self.atend,text="ATÉ",
+                         font=("Inknut Antiqua", 24, "bold"), 
+                         fg="white", bg="#38312D")
         self.ate.place(x=975,y=130)
+
         #Botoes para data minima
         self.dia1 = Entry(self.atend,bd=1, font=(175), width=10)
-        self.dia1.place(x=825,y=110)
+        self.dia1.place(x=825,y=110,)
         self.dia1.insert(0,self.dia)
         self.dia1.bind("<FocusIn>", self.retirar1)
         self.dia1.bind("<FocusOut>", self.colocar1)
@@ -420,10 +426,18 @@ class front:
         self.ano2.bind("<FocusOut>", self.colocar6)
 
         #Buscar
-        Busca = Button(self.atend, image=self.concluido,borderwidth=0,bg="#38312D", command=self.busca)
+        Busca = Button(self.atend, 
+                       image=self.concluido,
+                       borderwidth=0,
+                       bg="#38312D", 
+                       command=self.busca)
         Busca.place(x=863,y=350)
         #voltar
-        seta=Button(self.atend, image=self.st,borderwidth=0,bg="#38312D", command=self.voltar)
+        seta=Button(self.atend, 
+                    image=self.st,
+                    borderwidth=0,
+                    bg="#38312D", 
+                    command=self.voltar)
         seta.place(x=1,y=1)
     #buscar
     def busca(self):
@@ -490,7 +504,7 @@ class front:
         self.icon = PhotoImage(file='img/engrenagem.png')
         self.janela.iconphoto(True, self.icon)
         self.janela.geometry("1280x720")
-        # self.janela.resizable(False,False)
+
 
         ## TEXTOS
         logo = Label (self.janela, text= "STEAMCOFFEE", font=("Inknut Antiqua Regular", 54), fg="#D9D9D9", bg="#38312D")        
@@ -509,13 +523,19 @@ class front:
         self.st=PhotoImage(file="img/seta.png")
 
         # BOTOES
-        gar=Button(self.janela, image=self.fbg, bg="#38312D",borderwidth=0,cursor="hand2", command=self.telagarcom)
+        gar=Button(self.janela, image=self.fbg, bg="#38312D",
+                   borderwidth=0,cursor="hand2", 
+                   command=self.telagarcom)
         gar.pack(pady=5)
 
-        bar=Button(self.janela, image=self.fbb, bg="#38312D",borderwidth=0,cursor="hand2", command=self.telabarista)
+        bar=Button(self.janela, image=self.fbb, bg="#38312D",
+                   borderwidth=0,cursor="hand2", 
+                   command=self.telabarista)
         bar.pack(pady=5)
 
-        nota=Button(self.janela, image=self.fbn,bg="#38312D",borderwidth=0,cursor="hand2", command=self.telaatend)
+        nota=Button(self.janela, image=self.fbn,bg="#38312D",
+                    borderwidth=0,cursor="hand2", 
+                    command=self.telaatend)
         nota.pack(pady=5)
 
     def ativar(self):
