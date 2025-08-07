@@ -225,7 +225,6 @@ class front:
         self.janela.deiconify()
 
     def confirmbar(self):
-        
         self.confmesa=self.qualmesa.get() 
         self.cur.execute('SELECT pedidocompl FROM barista WHERE pedidocompl LIKE %s',(f"{self.confmesa}%"))
         pedmesa=self.cur.fetchall()
@@ -236,7 +235,6 @@ class front:
         else:
             self.cur.execute('DELETE FROM barista where pedidocompl LIKE %s', (f"{self.confmesa}%",))
             self.pedidotexto.delete("1.0", END)
-
         self.pedido=[]
 
 
@@ -322,19 +320,28 @@ class front:
         self.pedidotexto.place(x=65, y=146)
 
 
-        textoconf=Label(self.janelabarista, text="MESA CONFIRMADA", font=("Inknut Antiqua", 23), fg="#D9D9D9", bg="#38312D")
+        textoconf=Label(self.janelabarista, text="MESA CONFIRMADA", 
+                        font=("Inknut Antiqua", 23), fg="#D9D9D9", 
+                        bg="#38312D")
         textoconf.place(x=733, y=174)
 
-        self.qualmesa=Entry(self.janelabarista, font=30, width=10, bg="#D9D9D9")
+        self.qualmesa=Entry(self.janelabarista, 
+                            font=30, width=10, 
+                            bg="#D9D9D9")
         self.qualmesa.place(x=840, y=258)
 
-        confirmarpedido=Button(self.janelabarista, image=self.fbcp, borderwidth=0, cursor="hand2", command=self.confirmbar, bg="#38312D")
+        confirmarpedido=Button(self.janelabarista, image=self.fbcp, 
+                               borderwidth=0, cursor="hand2", 
+                               command=self.confirmbar, bg="#38312D")
         confirmarpedido.place(x=995, y=250)
 
-        seta=Button(self.janelabarista, image=self.st,borderwidth=0,bg="#38312D", command=self.voltar)
+        seta=Button(self.janelabarista, image=self.st,borderwidth=0,
+                    bg="#38312D", command=self.voltar)
         seta.place(x=6, y=4)
 
-        jan=Label(self.janelabarista, text="BARISTA", font=("Inknut Antiqua", 30), fg="#D9D9D9", bg="#38312D")
+        jan=Label(self.janelabarista, text="BARISTA", 
+                  font=("Inknut Antiqua", 30), fg="#D9D9D9", 
+                  bg="#38312D")
         jan.place(x=64, y=28)
 
         linhab= Frame(self.janelabarista, bg="#D9D9D9", height=1, width=1144)        
@@ -364,15 +371,22 @@ class front:
         linha02.place(x=785,y=10)
 
         #listbox
-        self.notinhas = Listbox(self.atend,bg='#38312D',fg="#D9D9D9",font=("Inknut Antiqua", 12), width=60, height=12,highlightthickness=0,bd=0)
+        self.notinhas = Listbox(self.atend,bg='#38312D',
+                                fg="#D9D9D9",
+                                font=("Inknut Antiqua", 12), 
+                                width=60, height=12,
+                                highlightthickness=0,bd=0)
         self.notinhas.place(x=50,y=110)
 
         #texto para botoes de data
         self.dia = "        Dia"
         self.mes = "        Mês"
         self.ano = "        Ano"
-        self.ate = Label(self.atend,text="ATÉ",font=("Inknut Antiqua", 24, "bold"), fg="white", bg="#38312D")
+        self.ate = Label(self.atend,text="ATÉ",
+                         font=("Inknut Antiqua", 24, "bold"), 
+                         fg="white", bg="#38312D")
         self.ate.place(x=975,y=130)
+
         #Botoes para data minima
         self.dia1 = Entry(self.atend,bd=1, font=(175), width=10)
         self.dia1.place(x=825,y=110,)
@@ -412,10 +426,18 @@ class front:
         self.ano2.bind("<FocusOut>", self.colocar6)
 
         #Buscar
-        Busca = Button(self.atend, image=self.concluido,borderwidth=0,bg="#38312D", command=self.busca)
+        Busca = Button(self.atend, 
+                       image=self.concluido,
+                       borderwidth=0,
+                       bg="#38312D", 
+                       command=self.busca)
         Busca.place(x=863,y=350)
         #voltar
-        seta=Button(self.atend, image=self.st,borderwidth=0,bg="#38312D", command=self.voltar)
+        seta=Button(self.atend, 
+                    image=self.st,
+                    borderwidth=0,
+                    bg="#38312D", 
+                    command=self.voltar)
         seta.place(x=1,y=1)
     #buscar
     def busca(self):
@@ -501,13 +523,19 @@ class front:
         self.st=PhotoImage(file="img/seta.png")
 
         # BOTOES
-        gar=Button(self.janela, image=self.fbg, bg="#38312D",borderwidth=0,cursor="hand2", command=self.telagarcom)
+        gar=Button(self.janela, image=self.fbg, bg="#38312D",
+                   borderwidth=0,cursor="hand2", 
+                   command=self.telagarcom)
         gar.pack(pady=5)
 
-        bar=Button(self.janela, image=self.fbb, bg="#38312D",borderwidth=0,cursor="hand2", command=self.telabarista)
+        bar=Button(self.janela, image=self.fbb, bg="#38312D",
+                   borderwidth=0,cursor="hand2", 
+                   command=self.telabarista)
         bar.pack(pady=5)
 
-        nota=Button(self.janela, image=self.fbn,bg="#38312D",borderwidth=0,cursor="hand2", command=self.telaatend)
+        nota=Button(self.janela, image=self.fbn,bg="#38312D",
+                    borderwidth=0,cursor="hand2", 
+                    command=self.telaatend)
         nota.pack(pady=5)
 
     def ativar(self):
